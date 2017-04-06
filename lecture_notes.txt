@@ -1,0 +1,75 @@
+Lecture 1, 21/3
+Labs voluntarily
+Take home exam: over summer (!)
+Home assignment deadlines: 5/5, 26/5 & 9/6
+
+Simulations can be used to confirm developed analytical models
+Different kind of systems:
+	Continuous
+	Discrete
+	Hybrid
+	Dynamic - time dependent
+	Stochastic 
+Verification vs. validation
+	ver = test your model, does your program work as the model you developed with simple tests
+	val = sanity checks?
+Model concepts, slide 16
+Random generate points of measurements: 
+	Takes time to write to file
+	How much data is desired?
+
+Lecture 2, 23/3
+Event scheduling method
+	Smaller problems
+	Also event-listing, this is how the events+times are stored
+	Cf. queue and scheduling of departure and arrivals, but you need an initialisation trigger/kick-start.
+	Events are times at which an action takes place, in this case arrival/departure.
+		These events are stored in an ordered list wrt time.
+Process-interaction method, slide 21
+	Object orientation, process = object
+	Use signal communication
+	Matrix to keep track of event-list (2nd dimension = the process' signal list)
+	Steps of constructing the process interaction : slide 39!
+	Should read up upon the implementation of this method
+
+Measurements:
+	Be careful of biased measurements -> randomise times -> central limit theorem --> mean(process)
+
+Lecture 3, 28/2
+Verification
+	Animation tools for discrete event simulations
+	Comparison with analytical results (Little's theorem)
+Pseudo-random numbers: deterministic sequence of numbers which "are random". Common: congruential generators.
+Inverse CDF method for random numbers according to a probability distribution.
+	Gaussian distr. Approximate inverse. If accuracy is important, examine the method to generated the distr. 
+
+Error propagation:
+	errors in input
+	Standard error prop. holds: DeltaX << X
+
+Lecture 4, 4/4
+Mean is an unbiased estimator!
+Use confidence intervals -> update during runtime and plot for better interpretation.
+Warmup time: lag before the system reaches a steady state -> need to postpone measurements! Observe the properties of what you'd like to measure first. 
+Confidence intervals implies data is uncorrelated. Always check if there is a correlation in the system.
+Correlations can be calculated continuously during a run ...
+Manipulating measurement frequency can improve correlation
+Batch means - group your data and take means from these group as the measurements
+FOR MORE STATISTICS:
+Another good book that deals much more with the statistical side of discrete event simulation is:
+
+    S. M. Ross, Simulation 4th ed., Academic Press 2006
+
+    For more exensive analysis of time series from a statistical POV.
+
+    Andreas Jakobsson, An Introduction to Time Series Modeling 2nd ed., Studentlitteratur 2015
+
+Lecture 5, 6/4
+Two options for simulations:
+	Study behaviour
+	Get optimal solution
+Convex optimisation problem?
+Combinatorial search -> discrete time space
+Linear programming: Optimisation of linear problem (linear function)
+Feasible region: region within which solutions exist
+LP: solution is on a corner point!

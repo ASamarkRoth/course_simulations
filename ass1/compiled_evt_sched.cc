@@ -3,11 +3,11 @@ import java.io.*;
 
 class State{
 	public int numberInQueue = 0, accumulated = 0, noMeasurements = 0;
-	
+
 
 	Random slump = new Random();
 	SimpleFileWriter W = new SimpleFileWriter("number.m", false);
-	
+
 	public void TreatEvent(Event x){
 		switch (x.eventType){
 			case G.ARRIVAL:{
@@ -39,15 +39,15 @@ class Event{
 }
 
 public class EventList{
-	
+
 	public static Event list, last;
-	
+
 	EventList(){
 		EventList.list = new Event();
     	EventList.last = new Event();
     	EventList.list.next = EventList.last;
 	}
-	
+
 	public static void InsertEvent(int type, double TimeOfEvent){
  	Event dummy, predummy;
  	Event newEvent = new Event();
@@ -62,7 +62,7 @@ public class EventList{
  	predummy.next = newEvent;
  	newEvent.next = dummy;
  }
-	
+
 	public static Event FetchEvent(){
 		Event dummy;
 		dummy = list.next;
@@ -82,7 +82,7 @@ import java.io.*;
 
 
 public class Template2006 {
- 
+
     public static void main(String[] args) throws IOException {
     	Event actEvent;
     	State actState = new State();
@@ -108,13 +108,13 @@ import java.io.*;
  * Mikael Andersson, Lund Institute of Technology, 2002-2005
  *
  */
- 
-public class SimpleFileWriter 
+
+public class SimpleFileWriter
 {
 	FileWriter aFileWriter;
-	
+
 	String aNewLine = "\r\n";
-	
+
 	/*
 	 * Creates a new SimpleFileWriter
 	 *
@@ -134,7 +134,7 @@ public class SimpleFileWriter
         	System.out.println(pIOE.toString());
         }
 	}
-	
+
 	/*
 	 * Closes the fileprinter
 	 *
@@ -147,10 +147,10 @@ public class SimpleFileWriter
 		}
 		catch(IOException pIOE)
 		{
-			System.out.println(pIOE.toString());	
+			System.out.println(pIOE.toString());
 		}
 	}
-	
+
 	/*
 	 * Appends a new line to the file
 	 *
@@ -158,7 +158,7 @@ public class SimpleFileWriter
 	 *
 	 */
 	public void println(String pString)
-	{		
+	{
 		try
 		{
 			aFileWriter.write(pString, 0, pString.length());
@@ -167,9 +167,9 @@ public class SimpleFileWriter
         catch(IOException pIOE)
         {
         	System.out.println(pIOE.toString());
-        }       
-	}	
-	
+        }
+	}
+
 	/*
 	 * Appends a text to the file
 	 *
@@ -177,7 +177,7 @@ public class SimpleFileWriter
 	 *
 	 */
 	public void print(String pString)
-	{		
+	{
 		try
 		{
 			aFileWriter.write(pString, 0, pString.length());
@@ -185,6 +185,6 @@ public class SimpleFileWriter
         catch(IOException pIOE)
         {
         	System.out.println(pIOE.toString());
-        }       
-	}	
+        }
+	}
 }

@@ -1,0 +1,55 @@
+\documentclass[]{article}
+\usepackage{float}
+\usepackage{graphicx}
+
+\title{Simulation - Assignment 1}
+\author{Anton Roth}
+\date{\today}
+
+\begin{document}
+\begin{titlepage}
+  \maketitle
+  \thispagestyle{empty}
+\end{titlepage}
+
+\section{Task 1}
+The system with two queues was implemented with the {\it Event-Scheduling} approach. As model verifications the following was controlled numerically and graphically:
+\begin{itemize}
+  \item Inter-arrival times $\rightarrow 0$ :
+    \begin{itemize}
+      \item Length of Q1 $\rightarrow 10$.
+      \item Rejection ratio of Q1 $\rightarrow 1$.
+    \end{itemize}
+  \item Inter-arrival times $\rightarrow \infty$ :
+    \begin{itemize}
+      \item Length of Q1 $\rightarrow 0$.
+      \item Rejection ratio of Q1 $\rightarrow 0$.
+    \end{itemize}
+\end{itemize}
+
+Measurements were made with time-differences exponentially distributed with a mean of 5 s. 10000 measurements were taken. The results of task 1 is presented in Table \ref{tab:task1}.
+
+\begin{table}[H]
+  \centering
+  \caption{My caption}
+  \label{tab:task1}
+  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \textbf{Inter-arrival times Q1 (s)} & \textbf{Mean length Q2} & \textbf{StdDev length Q2} & \textbf{Mean rejection ratio Q1} & \textbf{StdDev rejection ratio Q1} \\ \hline
+  1                                   & 11                      & 13                        & 0.52                             & 0.02                              \\ \hline
+  2                                   & 4.4                     & 3.0                       & 0.070                            & 0.009                             \\ \hline
+  5                                   & 0.43                    & 0.55                      & 0                                & 0                                 \\ \hline
+  \end{tabular}%
+}
+\end{table}
+
+From the results of length Q2 presented in Table \ref{tab:task1} it is impossible to draw proper conclusions as the uncertainties is of the same order as the mean. The rejection ratios are more significant and shows an expected behaviour, i.e. the shorter inter-arrival time the higher rejection rate.
+
+Is it ok to assume that mean is normal distributed? This is {\it Central Limit Theorem}, right?
+
+\section{Task 2}
+
+
+
+\end{document}

@@ -1,0 +1,16 @@
+Results for IsBPriority? = 1
+mean(NAB) = 130.588
+stddev(NAB) = 102.89
+mean(NA) = 85.18
+stddev(NA) = 72.5358
+mean(NB) = 45.408
+stddev(NB) = 54.6194
+
+Results for IsBPriority? = 0
+mean(NAB) = 3.562
+stddev(NAB) = 3.81289
+mean(NA) = 0.297
+stddev(NA) = 0.578611
+mean(NB) = 3.265
+stddev(NB) = 3.72569
+

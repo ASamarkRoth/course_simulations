@@ -24,131 +24,61 @@ void EventList::InsertEvent(int type, double time) {
 	}
 
 	auto it = event_list.begin();
-	while(it != event_list.end() && e.eventtime >= it->eventtime) {
+	while(it != event_list.end() && e.eventtime > it->eventtime) {
 		++it;
 	}
 
 	it = event_list.insert(it, e);
 }
 
-State::State(default_random_engine& re, bool is_B, unsigned int c) : NA(0), NB(0), nbr_measurements(0), rnd_engine(re), is_B_priority(is_B), is_server_busy(false), count(c) {
-
-	xA = 0.002;
-	xB = 0.004;
-	d = 1;
-	lambda = 150;
+State::State(default_random_engine& re, double dt) : LQ1(0), LQ2(0), nbr_arrivalsQ1(0), nbr_rejectedQ1(0), nbr_measurements(0), rnd_engine(re), dtQ1(dt) {
 
 }
 
 void State::ProcessEvent(EventList& el) {
 	Event e = el.event_list[0];
-	cout << "Processing event: " << endl;
 	switch (e.eventtype){
-		case Event::AddJobA:
-			cout << "AddJobA " << e << endl;
-			el.InsertEvent(Event::AddJobA, e.eventtime + get_exp_time(rnd_engine, 1./lambda));
-			//If buffer empty and server not busy, need to trigger serve.
-			if(v_Buffer.size() == 0 && !is_server_busy) {
-				el.InsertEvent(Event::ServeJobA, e.eventtime + xA);
-				is_server_busy = true;
-				break;
-			}
-			AddJobToBuffer(e);
-			++NA;
-			break;
-		case Event::AddJobB:
-			cout << "AddJobB " << e << endl;
-			//If buffer empty, need to trigger serve.
-			if(v_Buffer.size() == 0 && !is_server_busy) {
-				el.InsertEvent(Event::ServeJobB, e.eventtime + xB);
-				is_server_busy = true;
-				break;
-			}
-			AddJobToBuffer(e);
-			++NB;
-			break;
-		case Event::ServeJobA:
-			cout << "ServeJobA: " << e << endl;
-			if(v_Buffer.size() != 0) {
-				//This if statement is an ugly solution, due to bad planning
-				if(v_Buffer[0].eventtype == Event::AddJobB) {
-					cout << "Processing Job B" << endl;
-						el.InsertEvent(Event::ServeJobB, e.eventtime + xB);
-						auto it = v_Buffer.erase(v_Buffer.begin());
-						--NB;
-					}
-					else {
-						cout << "Processing Job A" << endl;
-						el.InsertEvent(Event::ServeJobA, e.eventtime + xA);
-						auto it = v_Buffer.erase(v_Buffer.begin());
-						--NA;
-						if(count == 2) {
-							el.InsertEvent(Event::AddJobB, e.eventtime + get_exp_time(rnd_engine, 1));
-						}
-						else el.InsertEvent(Event::AddJobB, e.eventtime + d);
-					}
-					is_server_busy = true;
+		case Event::ArrivalQ1:
+			cout << "ArrivalQ1: " << e << endl;
+			if(LQ1 < 10) {
+				++LQ1;
+				++nbr_arrivalsQ1;
 			}
 			else {
-				is_server_busy = false;
-				if(count == 2) {
-					el.InsertEvent(Event::AddJobB, e.eventtime + get_exp_time(rnd_engine, 1));
-				}
-				else el.InsertEvent(Event::AddJobB, e.eventtime + d);
+				++nbr_arrivalsQ1;
+				++nbr_rejectedQ1;
 			}
+			el.InsertEvent(Event::ArrivalQ1, e.eventtime + dtQ1);
+			if(LQ1 == 1) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 2.1));
 			break;
-		case Event::ServeJobB:
-			cout << "ServeJobB: " << e << endl;
-			if(v_Buffer.size() != 0) {
-				//This if statement is an ugly solution, due to bad planning
-				if(v_Buffer[0].eventtype == Event::AddJobB) {
-						el.InsertEvent(Event::ServeJobB, e.eventtime + xB);
-						auto it = v_Buffer.erase(v_Buffer.begin());
-						--NB;
-					}
-					else {
-						el.InsertEvent(Event::ServeJobA, e.eventtime + xA);
-						auto it = v_Buffer.erase(v_Buffer.begin());
-						--NA;
-					if(count == 2) {
-						el.InsertEvent(Event::AddJobB, e.eventtime + get_exp_time(rnd_engine, 1));
-					}
-					else el.InsertEvent(Event::AddJobB, e.eventtime + d);
-					}
-					is_server_busy = true;
-			}
-			else {
-				is_server_busy = false;
-			}
+		case Event::DepartQ1:
+			cout << "DepartQ1: " << e << endl;
+			--LQ1;
+			++LQ2;
+			if(LQ1 > 0) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 2.1));
+			if(LQ2 == 1) el.InsertEvent(Event::DepartQ2, e.eventtime + 2);
+			break;
+		case Event::DepartQ2:
+			cout << "DepartQ2: " << e << endl;
+			--LQ2;
+			if(LQ2 > 0) el.InsertEvent(Event::DepartQ2, e.eventtime + 2);
 			break;
 		case Event::Measure:
-			cout << "Measuring: " << NA << ", "<< NB << ", " << e.eventtime << endl;
+			cout << "Measuring: " << LQ1 << ", "<< LQ2 << ", " << e.eventtime << endl;
 			++nbr_measurements;
-			el.InsertEvent(Event::Measure, e.eventtime + 0.1);
-			v_NA.push_back(NA);
-			v_NB.push_back(NB);
-			v_NAB.push_back(v_Buffer.size());
-			v_mean.push_back(calc_mean(v_NAB));
-			v_var.push_back(calc_stddev(v_NAB));
+			el.InsertEvent(Event::Measure, e.eventtime + get_exp_time(rnd_engine, 5));
+			v_LQ1.push_back(LQ1);
+			v_LQ2.push_back(LQ2);
+			v_mean.push_back(calc_mean(v_LQ2));
+			v_var.push_back(calc_stddev(v_LQ2));
 			v_time.push_back(e.eventtime);
+			if(nbr_arrivalsQ1 != 0) {
+				v_rej_ratio.push_back(static_cast<double>(nbr_rejectedQ1)/static_cast<double>(nbr_arrivalsQ1));
+			}
+			else v_rej_ratio.push_back(0);
 			break;
 	}
 }
-
-void State::AddJobToBuffer(Event e) {
-	cout << "Adding to buffer Job " << e.eventtype << endl;
-	if(v_Buffer.size() == 0) {
-		v_Buffer.push_back(e);
-		return;
-	}
-	if( (e.eventtype == Event::AddJobA && !is_B_priority) || (e.eventtype == Event::AddJobB && is_B_priority)) {
-		auto it = find_if(v_Buffer.begin(), v_Buffer.end(), [e] (const Event& b) {return b.eventtype != e.eventtype;});
-		v_Buffer.insert(it, e);
-	}
-	else v_Buffer.push_back(e);
-
-}
-
 void State::Write(string s) {
 	cout << "Writing to file task1.root" << endl;
 	TFile* f_out = new TFile(TString(s), "RECREATE");
@@ -166,9 +96,9 @@ void State::Write(string s) {
   //TString legend_labels[runs] = {TString("Simple, 1 mm diameter"), TString("Simple, 1.5 mm diameter"),TString("Integrated cones (i)"),TString("Integrated cones (ii)"), TString("Integrated cylinders")};
 
 	TString s_x[2] = {"Time (s)", "Time (s)"};
-	TString s_y[5] = {"NAB", "NA", "NB", "Mean NAB", "StdDev NAB"};
+	TString s_y[5] = {"Length Q1", "Length Q2", "Rejection probability in Q1", "Mean LQ2", "StdDev LQ2"};
 
-	g = new TGraph(v_NAB.size(), &(v_time[0]), &(v_NAB[0]));
+	g = new TGraph(v_LQ2.size(), &(v_time[0]), &(v_LQ1[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
 	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
 	g->SetTitle("");
@@ -178,7 +108,7 @@ void State::Write(string s) {
 	g->GetXaxis()->CenterTitle();
 	g->Write();
 
-	g = new TGraph(v_NAB.size(), &(v_time[0]), &(v_NA[0]));
+	g = new TGraph(v_LQ2.size(), &(v_time[0]), &(v_LQ2[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
 	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
 	g->SetTitle("");
@@ -188,7 +118,7 @@ void State::Write(string s) {
 	g->GetXaxis()->CenterTitle();
 	g->Write();
 
-	g = new TGraph(v_NB.size(), &(v_time[0]), &(v_NB[0]));
+	g = new TGraph(v_rej_ratio.size(), &(v_time[0]), &(v_rej_ratio[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
 	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
 	g->SetTitle("");
@@ -227,6 +157,7 @@ void State::Write(string s) {
 double get_exp_time(default_random_engine& rnd, double mu) {
 	exponential_distribution<double> dist_exp(1/mu);
 	double rand = dist_exp(rnd);
+	cout << "rnd = " << rand << endl;
 	return rand;
 }
 

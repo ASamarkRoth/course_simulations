@@ -16,10 +16,9 @@ public:
 	double eventtime;
 
 	const static int Measure = 0;
-	const static int AddJobA = 1;
-	const static int AddJobB = 2;
-	const static int ServeJobA = 3;
-	const static int ServeJobB = 4;
+	const static int ArrivalQ1 = 1;
+	const static int DepartQ1 = 2;
+	const static int DepartQ2 = 3;
 
 };
 
@@ -32,22 +31,16 @@ public:
 class State {
 public:
 
-	State(std::default_random_engine& re, bool is_B, unsigned int c);
+	State(std::default_random_engine& re, double dt);
 
 	void ProcessEvent(EventList& e);
-	void AddJobToBuffer(Event e);
 	void Write(std::string s);
-	unsigned int NA, NB, nbr_measurements;
+	unsigned int LQ1, LQ2, nbr_arrivalsQ1, nbr_rejectedQ1, nbr_measurements;
 
 	std::default_random_engine rnd_engine;
-	bool is_B_priority, is_server_busy;
-	unsigned count;
-	std::vector<double> v_NA, v_NB, v_NAB, v_time, v_mean, v_var;
-
-	double xA, xB, d, lambda;
-
+	double dtQ1;
+	std::vector<double> v_LQ1, v_LQ2, v_rej_ratio, v_time, v_mean, v_var;
 	EventList el;
-	std::vector<Event> v_Buffer;
 
 };
 

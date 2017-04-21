@@ -10,8 +10,9 @@ int main() {
 	cout << "Running task 2 " << endl;
 	ofstream f_res("res_task2.txt");
 
-	vector<bool> is_B = {true, false};
+	vector<bool> is_B = {true, false, true};
 
+	int count = 0;
 	for(auto B : is_B) {
 		EventList el;
 		int seed = 0;
@@ -23,11 +24,11 @@ int main() {
 		el.InsertEvent(Event::AddJobA, t_1st_job);
 		el.InsertEvent(Event::Measure, 0.1);
 
-		State s(rnd_engine, B);
+		State s(rnd_engine, B, count);
 
 		while(s.nbr_measurements < 1000) {
 			cout << "NA = " << s.NA << endl;
-			if(s.NA > 2000) exit(1);
+			//if(s.NA > 2000) exit(1);
 			s.ProcessEvent(el);
 			auto it_temp = el.event_list.erase(el.event_list.begin());
 			/*
@@ -40,7 +41,8 @@ int main() {
 			copy(el.event_list.begin(), el.event_list.begin()+3, ostream_iterator<Event>(cout, "\n"));
 		}
 
-		s.Write("task2_"+to_string(B)+".root");
+		if(count == 2) s.Write("task2_"+to_string(B)+"_Exp.root");
+		else s.Write("task2_"+to_string(B)+".root");
 
 		f_res << "Results for IsBPriority? = " << B << endl;
 		f_res << "mean(NAB) = " << calc_mean(s.v_NAB) << endl;
@@ -52,6 +54,8 @@ int main() {
 		f_res << endl;
 
 		cout << "####################################################" << endl;
+
+		++count;
 	}
 
 

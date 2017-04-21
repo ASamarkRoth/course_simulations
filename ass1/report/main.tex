@@ -2,6 +2,9 @@
 \usepackage{float}
 \usepackage{graphicx}
 
+\newcommand{\TwoRowCell}[2][c]{%
+\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
 \title{Simulation - Assignment 1}
 \author{Anton Roth}
 \date{\today}
@@ -13,7 +16,9 @@
 \end{titlepage}
 
 \section{Task 1}
-The system with two queues was implemented with the {\it Event-Scheduling} approach. As model verifications the following was controlled numerically and graphically:
+The system with two queues was implemented with the {\it Event-Scheduling} approach. The states for the system were; Length of Q2, number of arrivals to Q1 and number of rejected arrivals to Q1. Four events were implemented: Arrival to Q1, Departure of Q1 (combined with arrival to Q2), Departure of Q2 and Measure.
+
+As model verifications the following was controlled numerically and graphically:
 \begin{itemize}
   \item Inter-arrival times $\rightarrow 0$ :
     \begin{itemize}
@@ -31,12 +36,12 @@ Measurements were made with time-differences exponentially distributed with a me
 
 \begin{table}[H]
   \centering
-  \caption{My caption}
+  \caption{Results of task 1. For the three different inter-arrival times the mean value and the corresponding standard deviation (StdDev) is presented for length of Q2 and the rejection ratio of Q1.}
   \label{tab:task1}
   \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|c|c|}
   \hline
-  \textbf{Inter-arrival times Q1 (s)} & \textbf{Mean length Q2} & \textbf{StdDev length Q2} & \textbf{Mean rejection ratio Q1} & \textbf{StdDev rejection ratio Q1} \\ \hline
+  \TwoRowCell{\bf Inter-arrival \\ \bf times Q1 (s)} & \TwoRowCell{\bf Mean length \\ \bf Q2} & \TwoRowCell{\bf StdDev length \\ \bf Q2} & \TwoRowCell{\bf Mean rejection \\ \bf ratio Q1} & \TwoRowCell{\bf StdDev rejection \\ \bf ratio Q1} \\ \hline
   1                                   & 11                      & 13                        & 0.52                             & 0.02                              \\ \hline
   2                                   & 4.4                     & 3.0                       & 0.070                            & 0.009                             \\ \hline
   5                                   & 0.43                    & 0.55                      & 0                                & 0                                 \\ \hline
@@ -49,7 +54,66 @@ From the results of length Q2 presented in Table \ref{tab:task1} it is impossibl
 Is it ok to assume that mean is normal distributed? This is {\it Central Limit Theorem}, right?
 
 \section{Task 2}
+The {\it Event-Scheduling} approach was also used in this task and the code written for task 1 was used as a template.
+The event structure was changed and a specific method was implemented for the addition of a job to the buffer.
+The following events were used: AddJobA, AddJobB, ServeJobA, ServeJobB and Measure.
+The states were simply the number of job type A, denoted $NA$ and B, denoted $NB$, in the buffer.
+Due to bad planning, an ugly solution was implemented for the case of adding a job from the buffer to serve (see code).
 
+As a verification step the following was controlled:
+\begin{itemize}
+  \item Delay times $\rightarrow \infty$ :
+    \begin{itemize}
+      \item $NA + NB \rightarrow 0$. This is due to that the serve time of A, $x_A = 0.002$ s is shorter than the average arrival time $ \sim 0.0067$.
+    \end{itemize}
+  \item Serve time for job A and B $x_A, x_B \rightarrow \infty$ :
+    \begin{itemize}
+      \item $ NA + NB \rightarrow \infty$.
+    \end{itemize}
+\end{itemize}
+
+
+\begin{table}[H]
+  \centering
+  \caption{Results of task 2 for the first three questions/simulation runs presented in the task description. For all runs the mean and standard deviation (StdDev) of the buffer length is presented.}
+  \label{tab:task2}
+  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{``Run''} & \TwoRowCell{\bf Mean length \\ \bf of buffer} & \TwoRowCell{\bf StdDev length \\ \bf of buffer} \\ \hline
+  1                                   & 130                      & 100            \\ \hline
+  2                                   & 7.2                    & 7.9          \\ \hline
+  3                                   & 3.6                     & 3.8           \\ \hline
+  \end{tabular}%
+}
+\end{table}
+
+The result of run 1 and 2 differs substantially.
+As job B is prioritised and feeded to a system with a delay of 1 s one obtains a periodicity.
+Consider a constant delay of 1 s and the situation when the system starts up, the periodic behaviour can be explained with the following chain of events:
+\begin{enumerate}
+  \item Job A:s are added to the buffer and served efficiently. The buffer length is kept minimal.
+  \item After 1 s job B:s are added to the buffer and since they are prioritised they are served immediately. The serving time is $ x_B > x_A $ and together with the fact that A jobs are continuously added to the buffer this implies that the buffer length will increase.
+  \item After some time all B jobs have been served and A jobs are again served. The buffer length decreases.
+  \item $\rightarrow$ point 2.
+\end{enumerate}
+Run 2 exhibits a weaker periodic behaviour since delay is now sampled from an exponential distribution.
+This has the effect that all B jobs will not arrive at the server at the same time and the buffer length will not increase as much.
+
+The mean length of the buffer for the third run is the lowest.
+The buffer length no longer shows a clear periodic behaviour.
+As A jobs now are prioritised and have a shorter serving time the buffer length can be efficiently be kept minimal.
+When there are no A jobs, B jobs which have a longer serving time will be processed.
+The pile-up in the buffer is not possible due to the efficient processing of the jobs.
+Better description?
+
+\section{Task 3}
+
+
+
+
+
+It should also be mentioned that there is a ``start-up'' period needed for the first run (although not implemented), as it takes some time for the buffer to stabilise in its periodic behaviour.
 
 
 \end{document}

@@ -14,3 +14,11 @@ stddev(NA) = 0.578611
 mean(NB) = 3.265
 stddev(NB) = 3.72569
 
+Results for IsBPriority? = 1
+mean(NAB) = 7.226
+stddev(NAB) = 7.89183
+mean(NA) = 6.628
+stddev(NA) = 7.65216
+mean(NB) = 0.598
+stddev(NB) = 0.984071
+

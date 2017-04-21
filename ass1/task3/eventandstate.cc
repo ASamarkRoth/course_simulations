@@ -40,28 +40,24 @@ void State::ProcessEvent(EventList& el) {
 	switch (e.eventtype){
 		case Event::ArrivalQ1:
 			cout << "ArrivalQ1: " << e << endl;
-			if(LQ1 < 10) {
-				++LQ1;
-				++nbr_arrivalsQ1;
-			}
-			else {
-				++nbr_arrivalsQ1;
-				++nbr_rejectedQ1;
-			}
-			el.InsertEvent(Event::ArrivalQ1, e.eventtime + dtQ1);
-			if(LQ1 == 1) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 2.1));
+			++LQ1;
+			el.InsertEvent(Event::ArrivalQ1, e.eventtime + get_exp_time(rnd_engine, dtQ1));
+			if(LQ1 == 1) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 1));
+			v_in_Q.push_back(e.eventtime);
 			break;
 		case Event::DepartQ1:
 			cout << "DepartQ1: " << e << endl;
 			--LQ1;
 			++LQ2;
-			if(LQ1 > 0) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 2.1));
-			if(LQ2 == 1) el.InsertEvent(Event::DepartQ2, e.eventtime + 2);
+			if(LQ1 > 0) el.InsertEvent(Event::DepartQ1, e.eventtime + get_exp_time(rnd_engine, 1));
+			if(LQ2 == 1) el.InsertEvent(Event::DepartQ2, e.eventtime + get_exp_time(rnd_engine, 1));
 			break;
 		case Event::DepartQ2:
 			cout << "DepartQ2: " << e << endl;
 			--LQ2;
-			if(LQ2 > 0) el.InsertEvent(Event::DepartQ2, e.eventtime + 2);
+			if(LQ2 > 0) el.InsertEvent(Event::DepartQ2, e.eventtime + get_exp_time(rnd_engine, 1));
+			v_mean_time.push_back(e.eventtime - v_in_Q[0]);
+			v_in_Q.erase(v_in_Q.begin());
 			break;
 		case Event::Measure:
 			cout << "Measuring: " << LQ1 << ", "<< LQ2 << ", " << e.eventtime << endl;
@@ -72,15 +68,11 @@ void State::ProcessEvent(EventList& el) {
 			v_mean.push_back(calc_mean(v_LQ2));
 			v_var.push_back(calc_stddev(v_LQ2));
 			v_time.push_back(e.eventtime);
-			if(nbr_arrivalsQ1 != 0) {
-				v_rej_ratio.push_back(static_cast<double>(nbr_rejectedQ1)/static_cast<double>(nbr_arrivalsQ1));
-			}
-			else v_rej_ratio.push_back(0);
 			break;
 	}
 }
 void State::Write(string s) {
-	cout << "Writing to file task1.root" << endl;
+	cout << "Writing to file task3.root" << endl;
 	TFile* f_out = new TFile(TString(s), "RECREATE");
 
 	TGraph* g;
@@ -96,7 +88,7 @@ void State::Write(string s) {
   //TString legend_labels[runs] = {TString("Simple, 1 mm diameter"), TString("Simple, 1.5 mm diameter"),TString("Integrated cones (i)"),TString("Integrated cones (ii)"), TString("Integrated cylinders")};
 
 	TString s_x[2] = {"Time (s)", "Time (s)"};
-	TString s_y[5] = {"Length Q1", "Length Q2", "Rejection probability in Q1", "Mean LQ2", "StdDev LQ2"};
+	TString s_y[4] = {"Length Q1", "Length Q2", "Mean LQ2", "StdDev LQ2"};
 
 	g = new TGraph(v_LQ2.size(), &(v_time[0]), &(v_LQ1[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
@@ -118,7 +110,7 @@ void State::Write(string s) {
 	g->GetXaxis()->CenterTitle();
 	g->Write();
 
-	g = new TGraph(v_rej_ratio.size(), &(v_time[0]), &(v_rej_ratio[0]));
+	g = new TGraph(v_mean.size(), &(v_time[0]), &(v_mean[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
 	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
 	g->SetTitle("");
@@ -128,21 +120,11 @@ void State::Write(string s) {
 	g->GetXaxis()->CenterTitle();
 	g->Write();
 
-	g = new TGraph(v_mean.size(), &(v_time[0]), &(v_mean[0]));
-	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
-	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
-	g->SetTitle("");
-	g->GetYaxis()->SetTitle(s_y[3]);
-	g->GetXaxis()->SetTitle(s_x[1]);
-	g->GetYaxis()->CenterTitle();
-	g->GetXaxis()->CenterTitle();
-	g->Write();
-
 	g = new TGraph(v_var.size(), &(v_time[0]), &(v_var[0]));
 	g->Draw("ACP"); //For the first one, one needs to draw axis with "A". Option "SAME" is not needed with TGraph!
 	//Axis objects for TGraph are created after it has been drawn, thus they need to be defined here.
 	g->SetTitle("");
-	g->GetYaxis()->SetTitle(s_y[4]);
+	g->GetYaxis()->SetTitle(s_y[3]);
 	g->GetXaxis()->SetTitle(s_x[1]);
 	g->GetYaxis()->CenterTitle();
 	g->GetXaxis()->CenterTitle();

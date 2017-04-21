@@ -39,7 +39,7 @@ public:
 
 	std::default_random_engine rnd_engine;
 	double dtQ1;
-	std::vector<double> v_LQ1, v_LQ2, v_rej_ratio, v_time, v_mean, v_var;
+	std::vector<double> v_LQ1, v_LQ2, v_mean_time, v_time, v_mean, v_var, v_in_Q;
 	EventList el;
 
 };

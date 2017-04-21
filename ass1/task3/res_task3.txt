@@ -1,0 +1,24 @@
+Results for dtQ1 = 2
+mean(LQ2) = 0.9968
+stddev(LQ2) = 1.41294
+mean(LQ1) = 0.9868
+stddev(LQ1) = 1.40593
+mean(time) = 3.99038
+stddev(time) = 2.81445
+
+Results for dtQ1 = 1.5
+mean(LQ2) = 1.9747
+stddev(LQ2) = 2.32462
+mean(LQ1) = 2.0498
+stddev(LQ1) = 2.61349
+mean(time) = 5.98602
+stddev(time) = 4.26656
+
+Results for dtQ1 = 1.1
+mean(LQ2) = 8.1972
+stddev(LQ2) = 8.13097
+mean(LQ1) = 10.2787
+stddev(LQ1) = 10.3989
+mean(time) = 20.1954
+stddev(time) = 13.5483
+

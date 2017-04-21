@@ -107,13 +107,32 @@ When there are no A jobs, B jobs which have a longer serving time will be proces
 The pile-up in the buffer is not possible due to the efficient processing of the jobs.
 Better description?
 
-\section{Task 3}
-
-
-
-
-
 It should also be mentioned that there is a ``start-up'' period needed for the first run (although not implemented), as it takes some time for the buffer to stabilise in its periodic behaviour.
+\section{Task 3}
+A similar system compared to in task 1 was implemented.
+One difference was the measure of the mean time a customer spends in the system.
+The time spent by every customer in the system was stored in a container and used to calculate the mean.
+Hence, it was not ``Measured'' as an event as this was considered the most efficient implementation and is not very computationally costly for the simulation.
+
+Measurements were made with time-differences exponentially distributed with a mean of 5 s. 10000 measurements were taken. The results of task 1 is presented in Table \ref{tab:task1}.
+
+\begin{table}[H]
+  \centering
+  \caption{Results of task 1. For the three different inter-arrival times the mean value and the corresponding standard deviation (StdDev) is presented for length of Q2 and the rejection ratio of Q1.}
+  \label{tab:task3}
+  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \TwoRowCell{\bf Inter-arrival \\ \bf times Q1 (s)} & \TwoRowCell{\bf Mean length \\ \bf Q2} & \TwoRowCell{\bf StdDev length \\ \bf Q2} & \TwoRowCell{\bf Mean rejection \\ \bf ratio Q1} & \TwoRowCell{\bf StdDev rejection \\ \bf ratio Q1} \\ \hline
+  1                                   & 11                      & 13                        & 0.52                             & 0.02                              \\ \hline
+  2                                   & 4.4                     & 3.0                       & 0.070                            & 0.009                             \\ \hline
+  5                                   & 0.43                    & 0.55                      & 0                                & 0                                 \\ \hline
+  \end{tabular}%
+}
+\end{table}
+
+
+
 
 
 \end{document}

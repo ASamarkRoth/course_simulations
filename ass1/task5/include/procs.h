@@ -11,11 +11,11 @@ class Process;
 class Signal  {
 public:
 
-	Signal(int type, std::shared_ptr<Process> dest, double time);
+	Signal(int type, std::string dest, double time);
 
 	int SignalType;
 	double ArrivalTime;
-	std::shared_ptr<Process> Destination;
+	std::string Destination;
 
 	const static int Ready = 1;
 	const static int Arrival = 2;
@@ -27,12 +27,12 @@ std::ostream& operator<<(std::ostream& os, const Signal* s);
 
 class Process {
 public:
-	std::vector<Signal*> SignalList;
+	std::vector<Signal> SignalList;
 
 	virtual ~Process() = default;
 	virtual void TreatSignal() = 0;
 
-	void AddSignal(int type, std::shared_ptr<Process> dest, double time);
+	void AddSignal(int type, std::string dest, double time);
 
 	void RemoveSignal();
 
@@ -42,39 +42,39 @@ public:
 
 class Generator : public Process {
 public:
-	Generator() : Process() {}
+	Generator(std::string n) : Process(), Name(n) {}
 
 	virtual ~Generator() {}
 
 	virtual void TreatSignal() override;
 
-	std::string Name = "Generator";
+	std::string Name;
 	virtual std::string GetName() {return Name;}
 
 };
 
 class Queue : public Process {
 public:
-	Queue() : Process() {}
+	Queue(std::string n) : Process(), Name(n) {}
 
 	virtual ~Queue() {}
 
 	virtual void TreatSignal() override;
 
-	std::string Name = "Queue";
+	std::string Name;
 	virtual std::string GetName() {return Name;}
 
 };
 
 class Measure : public Process {
 public:
-	Measure() : Process() {}
+	Measure(std::string n) : Process(), Name(n) {}
 
 	virtual ~Measure() {}
 
 	virtual void TreatSignal() override;
 
-	std::string Name = "Measure";
+	std::string Name;
 	virtual std::string GetName() {return Name;}
 
 };

@@ -5,16 +5,16 @@ using namespace std;
 int main() {
 	cout << "Running task 5" << endl;
 
-	shared_ptr<Generator> G(new Generator());
-	shared_ptr<Queue> Q(new Queue());
-	shared_ptr<Measure> M(new Measure());
+	shared_ptr<Generator> G(new Generator("Generator"));
+	shared_ptr<Queue> Q(new Queue("Q"));
+	shared_ptr<Measure> M(new Measure("Measure"));
 
-	G->AddSignal(Signal::Ready, G, 1);
-	G->AddSignal(Signal::Ready, G, 3);
-	Q->AddSignal(Signal::Ready, Q, 0);
-	M->AddSignal(Signal::Ready, M, 1.5);
-	G->AddSignal(Signal::Ready, G, 2);
-	Q->AddSignal(Signal::Ready, Q, 2);
+	G->AddSignal(Signal::Ready, "Generator", 1);
+	G->AddSignal(Signal::Ready, "Generator", 3);
+	Q->AddSignal(Signal::Ready, "Q", 0);
+	M->AddSignal(Signal::Ready, "Measure", 1.5);
+	G->AddSignal(Signal::Ready, "Generator", 2);
+	Q->AddSignal(Signal::Ready, "Q", 2);
 
 	ProcessList plist;
 

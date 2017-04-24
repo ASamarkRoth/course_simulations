@@ -1,0 +1,3 @@
+Run with mean arrival time 1
+mean LQ = 0.511
+Little's theorem LQ = 0.5

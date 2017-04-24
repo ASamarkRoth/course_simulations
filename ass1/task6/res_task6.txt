@@ -1,0 +1,6 @@
+Results for run 
+mean(overtime) = 23.5019
+stddev(NC) = 14.8884
+mean(Filling time) = 25.1209
+stddev(Filling time) = 11.2437
+

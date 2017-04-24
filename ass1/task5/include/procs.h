@@ -45,9 +45,11 @@ public:
 
 };
 
+class LoadDistr;
+
 class Generator : public Process {
 public:
-	Generator(std::string n, std::default_random_engine& rnd, double t) : Process(rnd), Name(n), t_mean(t) {}
+	Generator(std::string n, std::default_random_engine& rnd, double t, std::shared_ptr<LoadDistr>& load) : Process(rnd), Name(n), t_mean(t), Load(load), nbr_arrivals(0) {}
 
 	virtual ~Generator() {}
 
@@ -57,6 +59,8 @@ public:
 	virtual std::string GetName() const {return Name;}
 
 	double t_mean;
+	std::shared_ptr<LoadDistr> Load;
+	unsigned int nbr_arrivals;
 
 };
 
@@ -77,7 +81,7 @@ public:
 
 class Measure : public Process {
 public:
-	Measure(std::string n, std::default_random_engine& rnd, double t) : Process(rnd), Name(n), nbr_measurements(0), t_mean(t) {}
+	Measure(std::string n, std::default_random_engine& rnd, double t) : Process(rnd), Name(n), nbr_measurements(0), t_mean(t), LQ(0), measured(0) {}
 
 	virtual ~Measure() {}
 
@@ -86,9 +90,11 @@ public:
 	const std::string Name;
 	virtual std::string GetName() const {return Name;}
 
-	unsigned int nbr_measurements;
+	unsigned int nbr_measurements, LQ, measured;
 	double t_mean;
 	std::vector<double> v_LQ, v_time, v_mean, v_var;
+
+	void Write(std::string s);
 
 };
 
@@ -108,6 +114,60 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& os, ProcessList pl);
+
+class LoadDistr {
+public:
+
+	std::vector<std::shared_ptr<Queue>> Qs;
+
+	LoadDistr(std::vector<std::shared_ptr<Queue>>& queues) : Qs(queues) {}
+
+	virtual ~LoadDistr() = default;
+
+	virtual unsigned int GetQ(std::default_random_engine&) = 0;
+
+	virtual std::string GetName() = 0;
+};
+
+class RandomLoad : public LoadDistr {
+public:
+	virtual ~RandomLoad() = default;
+
+	RandomLoad(std::vector<std::shared_ptr<Queue>>& queues) : LoadDistr(queues) {}
+
+	virtual unsigned int GetQ(std::default_random_engine&);
+
+	virtual std::string GetName() {return Name;}
+	std::string Name = "Random";
+};
+
+class RobinLoad : public LoadDistr {
+public:
+	virtual ~RobinLoad() = default;
+
+	RobinLoad(std::vector<std::shared_ptr<Queue>>& queues) : LoadDistr(queues), index(1) {}
+
+	virtual unsigned int GetQ(std::default_random_engine&);
+
+	unsigned int index;
+
+	virtual std::string GetName() {return Name;}
+	std::string Name = "Robin";
+};
+
+class OptLoad : public LoadDistr {
+public:
+	virtual ~OptLoad() = default;
+
+	OptLoad(std::vector<std::shared_ptr<Queue>>& queues) : LoadDistr(queues), index(1) {}
+
+	virtual unsigned int GetQ(std::default_random_engine&);
+
+	unsigned int index;
+
+	virtual std::string GetName() {return Name;}
+	std::string Name = "Opt";
+};
 
 double get_exp_time(std::default_random_engine& rnd, double mu);
 double get_uni_time(std::default_random_engine& rnd, double mu);

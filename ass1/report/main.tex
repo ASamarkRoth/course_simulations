@@ -199,6 +199,21 @@ Why is run 5 just as bad and even worse than run 4?
 More measurements will indeed lower the variance of the mean estimate and this is clear with run 6 where the length of the confidence interval is the shortest.
 
 \section{Task 5}
+The system in this task was implemented with the {\it Process Interaction} method.
+It took quite some time to get it right.
+
+Three different processes, i.e. classes, were implemented; Generator, Queue and Measure.
+The interaction between the processes was implemented with a Signal class which comprised a SignalType, a receiving process Destination, and ArrivalTime, plus an optional parameter representing the measured values sent to the Measure process.
+A helper class ProcessList holds all Processes and controlls the Signal which is to be treated.
+A base class LoadDistr with derived classes RandomLoad, RobinLoad and OptLoad were also implemented.
+The Generator process possesses an object of type LoadDistr which has a function GetQ which is invoked when choose Queue.
+
+The system was first tried on just one Queue and verified with Little's theorem.
+In this process it was noted that if the mean arrival time was smaller than the mean service time, the system diverged.
+
+The system with all load distributions were then tried to be verified with a mean arrival time of 0.12 seconds.
+However, the obtained mean number of jobs in the queuing system was not congruent with Little's theorem in this case.
+It was assumed that
 
 
 

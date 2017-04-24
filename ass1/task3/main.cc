@@ -19,7 +19,7 @@ int main() {
 
 		//Kick-start:
 		el.InsertEvent(Event::ArrivalQ1, get_exp_time(rnd_engine, dt));
-		el.InsertEvent(Event::Measure, get_exp_time(rnd_engine, 5));
+		el.InsertEvent(Event::Measure, 1000 + get_exp_time(rnd_engine, 5));
 
 		State s(rnd_engine, dt);
 

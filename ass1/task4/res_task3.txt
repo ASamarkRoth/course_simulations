@@ -1,0 +1,24 @@
+Results for run = 0
+mean(NC) = 756.736
+stddev(NC) = 137.913
+
+Results for run = 1
+mean(NC) = 798.011
+stddev(NC) = 49.269
+
+Results for run = 2
+mean(NC) = 719.265
+stddev(NC) = 187.196
+
+Results for run = 3
+mean(NC) = 39.711
+stddev(NC) = 6.20995
+
+Results for run = 4
+mean(NC) = 39.7707
+stddev(NC) = 6.15968
+
+Results for run = 5
+mean(NC) = 40.0192
+stddev(NC) = 6.27502
+

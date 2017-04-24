@@ -114,25 +114,97 @@ One difference was the measure of the mean time a customer spends in the system.
 The time spent by every customer in the system was stored in a container and used to calculate the mean.
 Hence, it was not ``Measured'' as an event as this was considered the most efficient implementation and is not very computationally costly for the simulation.
 
-Measurements were made with time-differences exponentially distributed with a mean of 5 s. 10000 measurements were taken. The results of task 1 is presented in Table \ref{tab:task1}.
+Measurements were made with time-differences exponentially distributed with a mean of 5 s.
+10000 measurements were taken.
+The results of task 3 is presented in Table \ref{tab:task3}.
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 1. For the three different inter-arrival times the mean value and the corresponding standard deviation (StdDev) is presented for length of Q2 and the rejection ratio of Q1.}
+  \caption{Results of task 3. For the three different mean arrival times the mean customer length and the mean queueing time for the simulation and analytical calculations are presented.}
   \label{tab:task3}
   \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|c|c|}
   \hline
-  \TwoRowCell{\bf Inter-arrival \\ \bf times Q1 (s)} & \TwoRowCell{\bf Mean length \\ \bf Q2} & \TwoRowCell{\bf StdDev length \\ \bf Q2} & \TwoRowCell{\bf Mean rejection \\ \bf ratio Q1} & \TwoRowCell{\bf StdDev rejection \\ \bf ratio Q1} \\ \hline
-  1                                   & 11                      & 13                        & 0.52                             & 0.02                              \\ \hline
-  2                                   & 4.4                     & 3.0                       & 0.070                            & 0.009                             \\ \hline
-  5                                   & 0.43                    & 0.55                      & 0                                & 0                                 \\ \hline
+  \TwoRowCell{\bf Mean arrival \\ \bf times (s)} & \TwoRowCell{\bf Mean customer \\ \bf length (simulated) } & \TwoRowCell{\bf Mean customer \\ \bf length (analytically) }& \TwoRowCell{\bf Mean queueing \\ \bf time (simulated) } & \TwoRowCell{\bf Mean queueing \\ \bf time (analytically) } \\ \hline
+  2                                   & 1.98                      & 2                        & 3.99                             & 4                              \\ \hline
+  1.5                                   & 4.02                     & 4                       & 5.99                            & 6                             \\ \hline
+  1.1                                   & 18.5                    & 20                      & 20.2                                & 22                                 \\ \hline
   \end{tabular}%
 }
 \end{table}
 
+The simulated values are very congruent with the analytical calculations in case of 2 and 1.5 s mean arrival times.
+For the 1.1 s mean arrival time the simulated values deviate more from the analytical value.
+The reason to why, is unclear.
+A delayed start-up of 1000 s, chosen on the basis of the graphic evolution of the mean customer length, was tried but resulted in similar values.
+
+\section{Task 4}
+Task 4 was also solved with the {\it Event-Scheduling} approach and a similar implementation as in task 1.
+Three events were defined; Arrival, Depart and Measure.
+One system state was implemented as the number of customers, denoted $NC$,  in the system.
+
+As model verifications the following was controlled numerically and graphically:
+\begin{itemize}
+  \item $ x \rightarrow 0$ : $ NC \rightarrow 0$
+  \item $\lambda \rightarrow \infty$ : $ NC \rightarrow N$
+\end{itemize}
+
+\subsection{Question 1, 2 \& 3}
+The simulation measurements for the settings in questions 1, 2 and 3 is presented in Figure \ref{fig:task4}.
+
+Clear from Figure \ref{fig:task4} are different transient phases, i.e. time it takes till the system reaches an equilibrium in the total number of customers.
+Reading out when the measurements plane out the length of the transient phases are obtained and this is presented in Table \ref{tab:task4a}.
+
+\begin{table}[H]
+  \centering
+  \caption{Length of the transient phases for task 4 and the first three questions/simulation runs.}
+  \label{tab:task4a}
+  \begin{tabular}{|c|c|}
+  \hline
+  \textbf{``Run''} & \TwoRowCell{\bf Length of \\ \bf transient phase (s)} \\ \hline
+  1 ($x = 100, \lambda = 8$)                                  & 100     \\ \hline
+  2 ($x = 10, \lambda = 80$)                                 & 10 \\ \hline
+  3 ($x = 200, \lambda = 4$)                                 & 200   \\ \hline
+  \end{tabular}
+\end{table}
+
+For these three runs the number of customers in equilibrium is the same according to Little's theorem $ NC = \lambda \cdot x = 800$.
+The parameter that governs the length of transient phase is the rate of arrivals to the system, $\lambda$.
+The time it takes for the system to reach this number (assuming $ x >> \frac{1}{\lambda}$) is: $ t = \frac{800}{\lambda} $.
+
+\subsection{Question 4, 5 \& 6}
+The confidence interval is calculated using the provided {\it MATLAB} program.
+In this program the system measurements are modeled as an auto-regressive process.
+Why is this preferable model?
+I would really appreciate an answer :)
+
+The length of the 95\% confidence interval for the three different runs are presented in Table \ref{tab:task4b}.
+\begin{table}[H]
+  \centering
+  \caption{Length of the 95\% confidence interval for task 4 and the last three questions/simulation runs.}
+  \label{tab:task4b}
+  \begin{tabular}{|c|c|}
+  \hline
+  \textbf{``Run''} & \TwoRowCell{\bf Length of \\ \bf 95\% confidence interval.} \\ \hline
+  4 ($T = 4, M = 1000$)                                  & 1.17     \\ \hline
+  5 ($T = 1, M = 4000$)                                 & 1.27 \\ \hline
+  6 ($T = 4, M = 4000$)                                 & 0.64 \\ \hline
+  \end{tabular}
+\end{table}
+
+Period of arrivals: $\frac{1}{\lambda} = 0.25$.
+
+Why is run 5 just as bad and even worse than run 4?
+
+More measurements will indeed lower the variance of the mean estimate and this is clear with run 6 where the length of the confidence interval is the shortest.
+
+\section{Task 5}
 
 
 
 
-\end{document}
+
+
+
+
+ \end{document}

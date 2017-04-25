@@ -10,12 +10,12 @@ int main() {
 	cout << "Running task 1 " << endl;
 	ofstream f_res("res_task3.txt");
 
-	vector<double> N = {1000, 1000, 1000, 100, 100, 100};
-	vector<double> x = {100, 10, 200, 10, 10, 10};
-	vector<double> lambda = {8, 80, 4, 4, 4, 4};
-	vector<double> M = {1000, 1000, 1000, 1000, 4000, 4000};
-	vector<double> T = {1, 1, 1, 4, 1, 4};
-	vector<double> M_delay = {0, 0, 0, 10, 10, 10};
+	vector<double> N = {1000, 1000, 1000, 100, 100, 100, 100};
+	vector<double> x = {100, 10, 200, 10, 10, 10, 10};
+	vector<double> lambda = {8, 80, 4, 4, 4, 4, 4};
+	vector<double> M = {1000, 1000, 1000, 1000, 4000, 4000, 10000};
+	vector<double> T = {1, 1, 1, 4, 1, 4, 0.1};
+	vector<double> M_delay = {0, 0, 0, 10, 10, 10, 10};
 
 	for(unsigned int j = 0; j != x.size(); ++j) {
 		EventList el;

@@ -1,0 +1,4 @@
+Results for run 
+mean(life) = 3.67003
+stddev(life) = 0.925017
+

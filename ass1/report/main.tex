@@ -15,6 +15,11 @@
   \thispagestyle{empty}
 \end{titlepage}
 
+\section*{Introduction}
+The simulations has been performed with c++.
+For every task a brief description of the implementation is presented.
+I'm a PhD student in experimental nuclear physics and as with all research the results and statistical treatments and conclusions are extremely important. All possible feedback concerning this, is highly appreciated.
+
 \section{Task 1}
 The system with two queues was implemented with the {\it Event-Scheduling} approach. The states for the system were; Length of Q2, number of arrivals to Q1 and number of rejected arrivals to Q1. Four events were implemented: Arrival to Q1, Departure of Q1 (combined with arrival to Q2), Departure of Q2 and Measure.
 
@@ -200,7 +205,7 @@ More measurements will indeed lower the variance of the mean estimate and this i
 
 \section{Task 5}
 The system in this task was implemented with the {\it Process Interaction} method.
-It took quite some time to get it right.
+It took quite some time to implement.
 
 Three different processes, i.e. classes, were implemented; Generator, Queue and Measure.
 The interaction between the processes was implemented with a Signal class which comprised a SignalType, a receiving process Destination, and ArrivalTime, plus an optional parameter representing the measured values sent to the Measure process.

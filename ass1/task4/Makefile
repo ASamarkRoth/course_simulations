@@ -30,7 +30,7 @@ all: $(PROGS)
 # $< = The name of the first prerequisite. If the target got its recipe from an implicit rule, this will be the first prerequisite added by the implicit rule.
 # $^ = The names of all the prerequisites, with spaces between them.
 
-main: main.o eventandstate.o write.o
+main: main.o eventandstate.o
 
 # Phony targets
 .PHONY: all clean

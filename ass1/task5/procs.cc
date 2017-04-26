@@ -49,7 +49,7 @@ void ProcessList::Update() {
 			if(a->SignalList.size() == 0) return false;
 			else if(b->SignalList.size() == 0) return true;
 			else if(a->SignalList.size() == 0 && b->SignalList.size() == 0) return false;
-			else return a->SignalList[0].ArrivalTime < b->SignalList[0].ArrivalTime;
+			else return a->SignalList[0].ArrivalTime <= b->SignalList[0].ArrivalTime;
 			}
 			);
 }
@@ -96,8 +96,8 @@ void Generator::TreatSignal(Signal x) {
 	switch(x.SignalType) {
 		case Signal::Ready:
 			++nbr_arrivals;
-			AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
-			//AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
+			//AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
+			AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
 			AddSignal(Signal::Ready, "Generator", x.ArrivalTime + get_uni_time(rnd_engine, t_mean));
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
@@ -110,6 +110,7 @@ void Queue::TreatSignal(Signal x) {
 	switch(x.SignalType) {
 		case Signal::Ready:
 			if(LQ > 1){
+				cout << "Queue larger than 1 and adding Ready" << endl;
 				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
 				++nbr_ready;
 			}
@@ -117,7 +118,10 @@ void Queue::TreatSignal(Signal x) {
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
 		case Signal::Arrival:
-			if(LQ == 0) AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
+			if(LQ == 0) {
+				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
+				cout << "Queue was empty and adding Ready" << endl;
+			}
 			++LQ;
 			break;
 		case Signal::Measure:
@@ -231,7 +235,7 @@ unsigned int RobinLoad::GetQ(std::default_random_engine& rnd) {
 	return index++;
 }
 
-unsigned int OptLoad::GetQ(std::default_random_engine& rnd) {
+unsigned int SmallestQueLoad::GetQ(std::default_random_engine& rnd) {
 	unsigned int small = Qs[0]->LQ;
 	vector<unsigned int> v_small = {1};
 	for(unsigned int j = 1; j != Qs.size(); ++j) {
@@ -248,7 +252,7 @@ unsigned int OptLoad::GetQ(std::default_random_engine& rnd) {
 	uniform_int_distribution<unsigned int> dist_uni(0, v_small.size()-1);
 	unsigned int rand = dist_uni(rnd);
 	cout << "Rand = " << rand << endl;
-	if(v_small[rand] == 0) cout << "OptLoad = 0" << endl;
+	if(v_small[rand] == 0) cout << "SmallestQueLoad = 0" << endl;
 	return v_small[rand];
 
 }

@@ -8,13 +8,14 @@ int main() {
 	cout << "Running task 5" << endl;
 	ofstream f_res("res_task5.txt");
 
-	vector<double> v_t = {0.11, 0.15, 2.};
-	for(auto& time : v_t) {
-		for(int i = 0; i!=3;++i) {
-			int seed = 100;
+	//vector<double> v_t = {0.11, 0.15, 2.};
+	vector<double> v_t = {0.6};
+	for(auto& m_time : v_t) {
+		for(int i = 0; i!=1;++i) {
+			int seed = 1;
 			default_random_engine rnd(seed);
 
-			double mean_arrival_time = time;
+			double mean_arrival_time = m_time;
 			double mean_measure_time = 5;
 			vector<shared_ptr<Queue>> Qs;
 			ProcessList plist;
@@ -30,7 +31,7 @@ int main() {
 
 			shared_ptr<LoadDistr> rnd_load(new RandomLoad(Qs));
 			shared_ptr<LoadDistr> robin_load(new RobinLoad(Qs));
-			shared_ptr<LoadDistr> opt_load(new OptLoad(Qs));
+			shared_ptr<LoadDistr> opt_load(new SmallestQueLoad(Qs));
 			vector<shared_ptr<LoadDistr>> loads = {rnd_load, robin_load, opt_load};
 
 			shared_ptr<Generator> G(new Generator("Generator", rnd, mean_arrival_time, loads[i]));
@@ -43,7 +44,8 @@ int main() {
 			cout << plist << endl;
 
 			int j = 0;
-			while(M->nbr_measurements < 5*100000) {
+			//while(M->nbr_measurements < 5*100000) {
+			while(M->nbr_measurements < 2) {
 				plist.TreatSignal();
 				plist.Update();
 				cout << plist << endl;

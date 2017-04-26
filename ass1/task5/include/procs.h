@@ -155,11 +155,11 @@ public:
 	std::string Name = "Robin";
 };
 
-class OptLoad : public LoadDistr {
+class SmallestQueLoad : public LoadDistr {
 public:
-	virtual ~OptLoad() = default;
+	virtual ~SmallestQueLoad() = default;
 
-	OptLoad(std::vector<std::shared_ptr<Queue>>& queues) : LoadDistr(queues), index(1) {}
+	SmallestQueLoad(std::vector<std::shared_ptr<Queue>>& queues) : LoadDistr(queues), index(1) {}
 
 	virtual unsigned int GetQ(std::default_random_engine&);
 

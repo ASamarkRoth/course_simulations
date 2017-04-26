@@ -1,36 +1,4 @@
-Run with mean arrival time 0.11 and Load distr Random
-mean LQ = 46.1629
-Little's theorem LQ = 4.54545
-
-Run with mean arrival time 0.11 and Load distr Robin
-mean LQ = 27.1476
-Little's theorem LQ = 4.54545
-
-Run with mean arrival time 0.11 and Load distr Opt
-mean LQ = 10.966
-Little's theorem LQ = 4.54545
-
-Run with mean arrival time 0.15 and Load distr Random
-mean LQ = 9.33131
-Little's theorem LQ = 3.33333
-
-Run with mean arrival time 0.15 and Load distr Robin
-mean LQ = 5.9938
-Little's theorem LQ = 3.33333
-
-Run with mean arrival time 0.15 and Load distr Opt
-mean LQ = 3.9421
-Little's theorem LQ = 3.33333
-
-Run with mean arrival time 2 and Load distr Random
-mean LQ = 0.256876
-Little's theorem LQ = 0.25
-
-Run with mean arrival time 2 and Load distr Robin
-mean LQ = 0.251168
-Little's theorem LQ = 0.25
-
-Run with mean arrival time 2 and Load distr Opt
-mean LQ = 0.250442
-Little's theorem LQ = 0.25
+Run with mean arrival time 0.6 and Load distr Random
+mean LQ = 1.5
+Little's theorem LQ = 0.833333
 

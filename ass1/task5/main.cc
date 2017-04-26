@@ -8,13 +8,14 @@ int main() {
 	cout << "Running task 5" << endl;
 	ofstream f_res("res_task5.txt");
 
-	vector<double> v_t = {0.11, 0.15, 2.};
-	for(auto& time : v_t) {
-		for(int i = 0; i!=3;++i) {
-			int seed = 100;
+	//vector<double> v_t = {0.11, 0.15, 2.};
+	vector<double> v_t = {0.6};
+	for(auto& m_time : v_t) {
+		for(int i = 0; i!=1;++i) {
+			int seed = 1;
 			default_random_engine rnd(seed);
 
-			double mean_arrival_time = time;
+			double mean_arrival_time = m_time;
 			double mean_measure_time = 5;
 			vector<shared_ptr<Queue>> Qs;
 			ProcessList plist;
@@ -43,7 +44,8 @@ int main() {
 			cout << plist << endl;
 
 			int j = 0;
-			while(M->nbr_measurements < 5*100000) {
+			//while(M->nbr_measurements < 5*100000) {
+			while(M->nbr_measurements < 2) {
 				plist.TreatSignal();
 				plist.Update();
 				cout << plist << endl;

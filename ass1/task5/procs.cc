@@ -49,7 +49,7 @@ void ProcessList::Update() {
 			if(a->SignalList.size() == 0) return false;
 			else if(b->SignalList.size() == 0) return true;
 			else if(a->SignalList.size() == 0 && b->SignalList.size() == 0) return false;
-			else return a->SignalList[0].ArrivalTime < b->SignalList[0].ArrivalTime;
+			else return a->SignalList[0].ArrivalTime <= b->SignalList[0].ArrivalTime;
 			}
 			);
 }
@@ -96,8 +96,8 @@ void Generator::TreatSignal(Signal x) {
 	switch(x.SignalType) {
 		case Signal::Ready:
 			++nbr_arrivals;
-			AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
-			//AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
+			//AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
+			AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
 			AddSignal(Signal::Ready, "Generator", x.ArrivalTime + get_uni_time(rnd_engine, t_mean));
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
@@ -110,6 +110,7 @@ void Queue::TreatSignal(Signal x) {
 	switch(x.SignalType) {
 		case Signal::Ready:
 			if(LQ > 1){
+				cout << "Queue larger than 1 and adding Ready" << endl;
 				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
 				++nbr_ready;
 			}
@@ -117,7 +118,10 @@ void Queue::TreatSignal(Signal x) {
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
 		case Signal::Arrival:
-			if(LQ == 0) AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
+			if(LQ == 0) {
+				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
+				cout << "Queue was empty and adding Ready" << endl;
+			}
 			++LQ;
 			break;
 		case Signal::Measure:

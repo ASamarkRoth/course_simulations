@@ -4,6 +4,14 @@
 \usepackage[]{subcaption}
 \captionsetup[figure]{labelfont={bf,footnotesize},textfont=footnotesize}
 \captionsetup[table]{labelfont={bf,footnotesize},textfont=footnotesize}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{
+  frame=single,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\usepackage{hyperref}
 
 \newcommand{\TwoRowCell}[2][c]{%
 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
@@ -241,22 +249,35 @@ It took quite some time to get it right.
 Three different processes, i.e. classes, were implemented; Generator, Queue and Measure.
 The interaction between the processes was implemented with a Signal class which comprised a SignalType, a receiving process Destination, and ArrivalTime, plus an optional parameter representing the measured values sent to the Measure process.
 A helper class ProcessList holds all Processes and controlls the Signal which is to be treated.
-A base class LoadDistr with derived classes RandomLoad, RobinLoad and OptLoad were also implemented.
-The Generator process possesses an object of type LoadDistr which has a function GetQ which is invoked when choose Queue.
+A base class LoadDistr with derived classes RandomLoad, RobinLoad and SmallestQue were also implemented.
+The Generator process possesses an object of type LoadDistr which has a function GetQ which is invoked when Queue is chosen.
 
 The system was first tried on just one Queue and verified with Little's theorem.
 In this process it was noted that if the mean arrival time was smaller than the mean service time, the system diverged.
+It was observed that for mean inter-arrival times $\rightarrow$ mean service time a mean queue length longer than the value from Little's theorem was always obtained.
+However, for larger inter-arrival times the queue length agreed with Little's theorem.
+Why this is the case is still unclear.
+The chain of signals have been closely controlled and these work as they are intended.
+The sampling from the uniform distribution and the exponential distribution has also been verified to work.
 
 The system with all load distributions were then tried to be verified with a mean arrival time of 0.12 seconds.
 However, the obtained mean number of jobs in the queuing system was not congruent with Little's theorem in this case.
 It was assumed that
 
-
-
-
-
-
-
+\begin{table}[H]
+  \centering
+  \caption{Results of task 5. For the three different inter-arrival times the mean value $\pm$ its standard deviation is presented for all load distributions and mean arrival times.}
+  \label{tab:task5}
+  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \TwoRowCell{\bf Inter-arrival \\ \bf times (s)} & \TwoRowCell{\bf Random load \\ \bf distribution} & \TwoRowCell{\bf Robin load \\ \bf distribution} & \TwoRowCell{\bf Smallest queue \\ \bf distribution}  \\ \hline
+  0.11                                   & 11                      & 13                        & 0.52                                                       \\ \hline
+  0.15                                   & 4.4                     & 3.0                       & 0.070                                                      \\ \hline
+  2                                   & 0.43                    & 0.55                      & 0                                                          \\ \hline
+  \end{tabular}%
+}
+\end{table}
 
 
 \section{Task 6}
@@ -293,6 +314,58 @@ The mean of this container, which is the average life time of the system, is the
   \end{tabular}
   \label{tab:task7}
 \end{table}
+
+
+
+\section*{Code}
+Below the c++-code used for the assignement is presented. Header files and Makefiles have been left out. I would strongly recommend to study the source code in the attached .zip file instead of trying to read here.
+Also, note that the framework ROOT [\url{https://root.cern.ch/}] has been used to visualise the data.
+
+\subsection{Task 1}
+{\large File: eventandstate.cc}
+\lstinputlisting[language=c++]{../task1/eventandstate.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task1/main.cc}
+
+\subsection{Task 2}
+{\large File: eventandstate.cc}
+\lstinputlisting[language=c++]{../task2/eventandstate.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task2/main.cc}
+
+\subsection{Task 3}
+{\large File: eventandstate.cc}
+\lstinputlisting[language=c++]{../task3/eventandstate.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task3/main.cc}
+
+\subsection{Task 4}
+{\large File: eventandstate.cc}
+\lstinputlisting[language=c++]{../task4/eventandstate.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task4/main.cc}
+
+\subsection{Task 5}
+{\large File: procs.cc}
+\lstinputlisting[language=c++]{../task5/procs.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task5/main.cc}
+
+\subsection{Task 6}
+{\large File: eventandstate.cc}
+\lstinputlisting[language=c++]{../task6/eventandstate.cc}
+
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task6/main.cc}
+
+\subsection{Task 7}
+{\large File: main.cc}
+\lstinputlisting[language=c++]{../task7/main.cc}
 
 
  \end{document}

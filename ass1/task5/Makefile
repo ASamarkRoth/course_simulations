@@ -6,7 +6,7 @@ CC  = g++
 
 # Define preprocessor, compiler, and linker flags. Uncomment the # lines
 # if you use clang++ and wish to use libc++ instead of libstd++.
-CPPFLAGS  = -std=c++11 -Iinclude/ `root-config --cflags`
+CPPFLAGS  = -std=c++11 -Iinclude/
 CXXFLAGS  = -g -O2 -Wall -W -pedantic-errors
 CXXFLAGS += -Wmissing-braces -Wparentheses
 CXXFLAGS += -std=c++11
@@ -16,7 +16,10 @@ LDFLAGS   = -g
 #LDFLAGS +=  -stdlib=libc++
 
 # Libraries
-LDLIBS = `root-config --libs --glibs`
+ifdef ROOTSYS
+	CPPFLAGS += `root-config --cflags`
+	LDLIBS = `root-config --libs --glibs`
+endif
 
 # Targets
 PROGS = main

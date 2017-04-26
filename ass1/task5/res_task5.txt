@@ -1,4 +1,4 @@
-Run with mean arrival time 0.6 and Load distr Random
-mean LQ = 1.5
-Little's theorem LQ = 0.833333
+Run with mean arrival time 0.3 and Load distr Random
+mean LQ = -nan
+Little's theorem LQ = 1.66667
 

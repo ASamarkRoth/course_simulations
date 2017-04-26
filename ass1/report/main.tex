@@ -265,9 +265,11 @@ Why this is the case is still unclear.
 The chain of signals have been closely controlled and these work as they are intended.
 The sampling from the uniform distribution and the exponential distribution has also been verified to work.
 
-The system with all load distributions were then tried to be verified with a mean arrival time of 0.12 seconds.
-However, the obtained mean number of jobs in the queuing system was not congruent with Little's theorem in this case.
-It was assumed that
+Even though the system might not work as it should the full implementation was made.
+The system behaved the same with 5 queues and the load distribution as discussed in the above section.
+Hence, with a mean arrival time of 0.12 seconds an obtained queue length quite longer than Little's theorem indicated.
+Although, the system does not seem to work correctly quantitatively it should qualititatively.
+The system was simulated for 100 000 s and the results for the different arrival times and load distributions are presented in Table \ref{tab:task6}.
 
 \begin{table}[H]
   \centering
@@ -277,12 +279,14 @@ It was assumed that
   \begin{tabular}{|c|c|c|c|}
   \hline
   \TwoRowCell{\bf Inter-arrival \\ \bf times (s)} & \TwoRowCell{\bf Random load \\ \bf distribution} & \TwoRowCell{\bf Robin load \\ \bf distribution} & \TwoRowCell{\bf Smallest queue \\ \bf distribution}  \\ \hline
-  0.11                                   & 11                      & 13                        & 0.52                                                       \\ \hline
-  0.15                                   & 4.4                     & 3.0                       & 0.070                                                      \\ \hline
-  2                                   & 0.43                    & 0.55                      & 0                                                          \\ \hline
+  0.11                                   & 46                      & 27                        & 11                                                       \\ \hline
+  0.15                                   & 9                     & 6                       & 4                                                      \\ \hline
+  2                                   & 0.26                    & 0.25                      & 0.25                                                          \\ \hline
   \end{tabular}%
 }
 \end{table}
+
+From the results presented in Table \ref{tab:task5} it is clear that the smallest queue distribution is the best as it has the lowest average queue length for all mean arrival times.
 
 
 \section{Task 6}

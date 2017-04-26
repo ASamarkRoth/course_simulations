@@ -1,15 +1,16 @@
 #include "procs.h"
+#include "write.h"
 
 #include <fstream>
 
 using namespace std;
 
 int main() {
-	cout << "Running task 5" << endl;
+	//cout/gc << "Running task 5" << endl;
 	ofstream f_res("res_task5.txt");
 
 	//vector<double> v_t = {0.11, 0.15, 2.};
-	vector<double> v_t = {0.6};
+	vector<double> v_t = {0.30};
 	for(auto& m_time : v_t) {
 		for(int i = 0; i!=1;++i) {
 			int seed = 1;
@@ -21,7 +22,7 @@ int main() {
 			ProcessList plist;
 
 			for(int j = 1; j != 6; ++j) {
-				cout << "Creating process: " << "Q" + to_string(j) << endl;
+				//cout/gc << "Creating process: " << "Q" + to_string(j) << endl;
 				Qs.push_back(shared_ptr<Queue>(new Queue("Q"+to_string(j), rnd)));
 				plist.AddProcess(Qs[j-1]);
 			}
@@ -41,24 +42,30 @@ int main() {
 			M->AddSignal(Signal::Ready, "Measure", get_exp_time(rnd, mean_measure_time));
 
 			plist.Update();
-			cout << plist << endl;
+			//cout/gc << plist << endl;
 
 			int j = 0;
-			//while(M->nbr_measurements < 5*100000) {
-			while(M->nbr_measurements < 2) {
+			while(plist.procs[0]->SignalList[0].ArrivalTime < 2) {
+			//while(M->nbr_measurements < 2) {
 				plist.TreatSignal();
+				//cout << "Before sorting ... " << endl;
+				//cout << plist << endl;
 				plist.Update();
-				cout << plist << endl;
+				cout << plist;
 				cout << "LQ = " << Qs[0]->LQ << endl;
 				int sum = 0;
 				for(int i = 0; i!=5; ++i) sum += Qs[i]->nbr_ready;
-				cout << "nbr_ready = " << sum << endl;
-				cout << "nbr_arrivals = " << G->nbr_arrivals << endl;
+				//cout/gc << "nbr_ready = " << sum << endl;
+				//cout/gc << "nbr_arrivals = " << G->nbr_arrivals << endl;
 				++j;
+				cout << ">>>>>>>>>> " << endl;
 			}
 
+#ifdef ROOTSYS
 			M->Write("task5_"+to_string(mean_arrival_time)+loads[i]->GetName()+".root");
+#endif
 
+			write_txt(M->v_LQ, "task5_"+to_string(mean_arrival_time)+loads[i]->GetName()+".txt");
 
 			f_res << "Run with mean arrival time " << mean_arrival_time << " and Load distr " << loads[i]->GetName() << endl;
 			f_res << "mean LQ = " << calc_mean(M->v_LQ) << endl;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.1)  26 APR 2017 11:35
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.1)  26 APR 2017 12:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -372,7 +372,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 94.
  [11]
-[12]) (../task1/main.cc [13] [14]) (../task2/eventandstate.cc [15] [16]
+[12] [13]) (../task1/main.cc [14]) (../task2/eventandstate.cc [15] [16]
 Overfull \hbox (46.11484pt too wide) in paragraph at lines 76--77
 [][][] 
  []
@@ -392,27 +392,27 @@ Overfull \hbox (34.11472pt too wide) in paragraph at lines 76--77
 [][][] 
  []
 
-
-Overfull \hbox (28.11465pt too wide) in paragraph at lines 77--78
-[][][] 
- []
-
-
-Overfull \hbox (10.11447pt too wide) in paragraph at lines 77--78
-[][][] 
- []
-
-
-Overfull \hbox (28.11465pt too wide) in paragraph at lines 77--78
-[][][] 
- []
-
-
-Overfull \hbox (10.11447pt too wide) in paragraph at lines 77--78
-[][][] 
- []
-
 [17]
+Overfull \hbox (28.11465pt too wide) in paragraph at lines 77--78
+[][][] 
+ []
+
+
+Overfull \hbox (10.11447pt too wide) in paragraph at lines 77--78
+[][][] 
+ []
+
+
+Overfull \hbox (28.11465pt too wide) in paragraph at lines 77--78
+[][][] 
+ []
+
+
+Overfull \hbox (10.11447pt too wide) in paragraph at lines 77--78
+[][][] 
+ []
+
+
 Overfull \hbox (40.11478pt too wide) in paragraph at lines 81--82
 [][][] 
  []
@@ -462,7 +462,7 @@ Overfull \hbox (10.11447pt too wide) in paragraph at lines 83--84
 [][][] 
  []
 
-
+[18]
 Overfull \hbox (3.00354pt too wide) in paragraph at lines 86--87
 [][][][][] 
  []
@@ -582,7 +582,7 @@ Overfull \hbox (28.11465pt too wide) in paragraph at lines 86--87
 [][]  
  []
 
-[18]
+
 Overfull \hbox (46.11484pt too wide) in paragraph at lines 88--89
 [][][] 
  []
@@ -602,12 +602,12 @@ Overfull \hbox (34.11472pt too wide) in paragraph at lines 88--89
 [][][] 
  []
 
-
+[19]
 Overfull \hbox (4.11441pt too wide) in paragraph at lines 95--96
 [][][] 
  []
 
-[19]
+
 Overfull \hbox (46.11484pt too wide) in paragraph at lines 105--106
 [][][] 
  []
@@ -722,8 +722,8 @@ Overfull \hbox (100.11539pt too wide) in paragraph at lines 56--58
 [][][] 
  []
 
-) (../task3/eventandstate.cc [27] [28] [29] [30] [31]) (../task3/main.cc
-[32] [33]
+) [27] (../task3/eventandstate.cc [28] [29] [30] [31]) [32] (../task3/main.cc
+[33]
 Overfull \hbox (16.11453pt too wide) in paragraph at lines 45--49
 [][][] 
  []
@@ -735,7 +735,7 @@ Overfull \hbox (16.11453pt too wide) in paragraph at lines 48--52
  []
 
 ) (../task5/procs.cc [40] [41] [42] [43] [44] [45] [46] [47]) (../task5/main.cc
-[48] [49]) [50] (../task6/eventandstate.cc [51] [52] [53] [54])
+[48] [49] [50]) (../task6/eventandstate.cc [51] [52] [53] [54])
 (../task6/main.cc [55] [56]
 Overfull \hbox (16.11453pt too wide) in paragraph at lines 54--58
 [][][] 
@@ -744,21 +744,21 @@ Overfull \hbox (16.11453pt too wide) in paragraph at lines 54--58
 ) (../task7/main.cc [57] [58]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ¤ in font cmr10!
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 376.
- [59]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 376.
+) [59]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
+ [60]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 376.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 376.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: AD138EE1BCB8DD406F454F28798579BF;817.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 376.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
  ) 
 Here is how much of TeX's memory you used:
- 10250 strings out of 493304
- 153145 string characters out of 6139872
- 454890 words of memory out of 5000000
+ 10251 strings out of 493304
+ 153168 string characters out of 6139872
+ 439558 words of memory out of 5000000
  11868 multiletter control sequences out of 15000+600000
  8718 words of font info for 31 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -777,10 +777,10 @@ msfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (60 pages, 455824 bytes).
+Output written on main.pdf (61 pages, 454954 bytes).
 PDF statistics:
- 2526 PDF objects out of 2984 (max. 8388607)
- 2373 compressed objects within 24 object streams
- 1743 named destinations out of 2073 (max. 500000)
+ 2532 PDF objects out of 2984 (max. 8388607)
+ 2378 compressed objects within 24 object streams
+ 1744 named destinations out of 2073 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

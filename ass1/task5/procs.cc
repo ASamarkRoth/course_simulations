@@ -49,23 +49,23 @@ void ProcessList::Update() {
 			if(a->SignalList.size() == 0) return false;
 			else if(b->SignalList.size() == 0) return true;
 			else if(a->SignalList.size() == 0 && b->SignalList.size() == 0) return false;
-			else return a->SignalList[0].ArrivalTime <= b->SignalList[0].ArrivalTime;
+			else return a->SignalList[0].ArrivalTime < b->SignalList[0].ArrivalTime;
 			}
 			);
 }
 
 void ProcessList::TreatSignal() {
-	cout << "Treating signal from ProcessList" << endl;
+	//cout << "Treating signal from ProcessList" << endl;
 	Signal x = procs[0]->SignalList[0];
 	shared_ptr<Process> p = FetchProcess(x);
-	cout << "About to invoke TreatSignal!" << endl;
-	if(!p) cout << "No process with that name" << endl;
+	//cout << "About to invoke TreatSignal!" << endl;
+	if(!p) cout << "No process with name " << x.Destination << endl;
 	p->TreatSignal(x);
 	procs[0]->RemoveSignal();
 }
 
 shared_ptr<Process> ProcessList::FetchProcess(Signal x) {
-	cout << "Fetching process with name: " << x.Destination << endl;
+	//cout << "Fetching process with name: " << x.Destination << endl;
 	auto it = find_if(procs.begin(), procs.end(),
 			[x] (const shared_ptr<Process> p) {
 				return x.Destination == p->GetName();
@@ -78,7 +78,11 @@ std::ostream& operator<<(std::ostream& os, ProcessList pl) {
 	os << "Listing processes: " << endl;
 	for(auto p : pl.procs) {
 		if(p->SignalList.size() == 0) continue;
-		os << p->GetName() << " - " << p->SignalList[0] << endl;
+		os << p->GetName() << " - ";
+		for(auto& s : p->SignalList) {
+			os << s << " ";
+		}
+		os << endl;
 	}
 	return os;
 }
@@ -92,7 +96,6 @@ std::ostream& operator<<(ostream& os, Process* p) {
 
 void Generator::TreatSignal(Signal x) {
 	cout << "Treating signal in " << this->GetName() << " - " << x << endl;
-
 	switch(x.SignalType) {
 		case Signal::Ready:
 			++nbr_arrivals;
@@ -110,7 +113,7 @@ void Queue::TreatSignal(Signal x) {
 	switch(x.SignalType) {
 		case Signal::Ready:
 			if(LQ > 1){
-				cout << "Queue larger than 1 and adding Ready" << endl;
+				//cout << "Queue larger than 1 and adding Ready" << endl;
 				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
 				++nbr_ready;
 			}
@@ -120,7 +123,7 @@ void Queue::TreatSignal(Signal x) {
 		case Signal::Arrival:
 			if(LQ == 0) {
 				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
-				cout << "Queue was empty and adding Ready" << endl;
+				//cout << "Queue was empty and adding Ready" << endl;
 			}
 			++LQ;
 			break;
@@ -147,7 +150,7 @@ void Measure::TreatSignal(Signal x) {
 				LQ += x.Meas;
 				++measured;
 				++nbr_measurements;
-				cout << "Measuring: " << LQ << endl;
+				//cout << "Measuring: " << LQ << endl;
 				v_LQ.push_back(LQ/1);
 				v_time.push_back(x.ArrivalTime);
 				measured = LQ = 0;
@@ -156,6 +159,7 @@ void Measure::TreatSignal(Signal x) {
 	}
 }
 
+#ifdef ROOTSYS
 #include "TString.h"
 #include "TFile.h"
 #include "TGraph.h"
@@ -220,17 +224,18 @@ void Measure::Write(string s) {
 
 
 }
+#endif
 
 unsigned int RandomLoad::GetQ(std::default_random_engine& rnd) {
-	cout << "Random Load " << endl;
+	//cout << "Random Load " << endl;
 	uniform_int_distribution<int> dist_uni(1, 5);
 	int rand = dist_uni(rnd);
-	cout << "rnd = " << rand << endl;
+	//cout << "rnd = " << rand << endl;
 	return rand;
 }
 
 unsigned int RobinLoad::GetQ(std::default_random_engine& rnd) {
-	cout << "Robin Load " << endl;
+	//cout << "Robin Load " << endl;
 	if(index > 5) index = 1;
 	return index++;
 }
@@ -247,12 +252,12 @@ unsigned int SmallestQueLoad::GetQ(std::default_random_engine& rnd) {
 		}
 	}
 	if(v_small.size() == 1) return v_small[0];
-	for(auto& t : v_small) cout << t << ", ";
-	cout << "v_small.size() = " << v_small.size() << endl;
+	//for(auto& t : v_small) cout << t << ", ";
+	//cout << "v_small.size() = " << v_small.size() << endl;
 	uniform_int_distribution<unsigned int> dist_uni(0, v_small.size()-1);
 	unsigned int rand = dist_uni(rnd);
-	cout << "Rand = " << rand << endl;
-	if(v_small[rand] == 0) cout << "SmallestQueLoad = 0" << endl;
+	//cout << "Rand = " << rand << endl;
+	//if(v_small[rand] == 0) cout << "SmallestQueLoad = 0" << endl;
 	return v_small[rand];
 
 }
@@ -266,7 +271,7 @@ double get_exp_time(default_random_engine& rnd, double mu) {
 double get_uni_time(default_random_engine& rnd, double mu) {
 	uniform_real_distribution<double> dist_uni(0, 2*mu);
 	double rand = dist_uni(rnd);
-	cout << "rnd = " << rand << endl;
+	//cout << "rnd = " << rand << endl;
 	return rand;
 }
 

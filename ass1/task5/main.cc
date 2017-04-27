@@ -73,7 +73,7 @@ int main() {
 				//cout << ">>>>>>>>>> " << endl;
 			}
 
-#ifdef ROOTSYS
+#ifdef ROOTYES
 			M->Write("task5_"+to_string(mean_arrival_time)+loads[i]->GetName()+".root");
 #endif
 

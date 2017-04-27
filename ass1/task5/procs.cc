@@ -159,7 +159,7 @@ void Measure::TreatSignal(Signal x) {
 	}
 }
 
-#ifdef ROOTSYS
+#ifdef ROOTYES
 #include "TString.h"
 #include "TFile.h"
 #include "TGraph.h"

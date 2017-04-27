@@ -18,9 +18,9 @@ LDFLAGS   = -g
 # Libraries
 root_config := root-config
 #if type root-config > /dev/null;
-#ifneq($root-config),)
-ifdef ROOTSYS
-	CPPFLAGS += `root-config --cflags`
+#ifdef ROOTSYS
+ifneq ($(root_config),)
+	CPPFLAGS += `root-config --cflags` -D ROOTYES=1
 	LDLIBS = `root-config --libs --glibs`
 endif
 

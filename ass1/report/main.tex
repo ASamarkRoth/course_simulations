@@ -12,6 +12,7 @@
   postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 }
 \usepackage{hyperref}
+\usepackage[]{amsmath}
 
 \newcommand{\TwoRowCell}[2][c]{%
 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
@@ -30,6 +31,12 @@
 The simulations has been performed with c++.
 For every task a brief description of the implementation is presented.
 I'm a PhD student in experimental nuclear physics and as with all research the results and statistical treatments and conclusions are extremely important. All possible feedback concerning this, is highly appreciated.
+
+If not otherwise noted, the 95\% confidence interval was calculated as:
+\begin{equation*}
+  [\bar{x} - 1.96\cdot\frac{\sigma}{\sqrt{N}}, \bar{x} + 1.96\cdot\frac{\sigma}{\sqrt{N}}]
+\end{equation*}
+Here $x$ is the samples, $\bar{x}$ the estimated mean, $\sigma$ the sample standard deviation and $N$ the number of samples.
 
 \section{Task 1}
 The system with two queues was implemented with the {\it Event-Scheduling} approach. The states for the system were; Length of Q2, number of arrivals to Q1 and number of rejected arrivals to Q1. Four events were implemented: Arrival to Q1, Departure of Q1 (combined with arrival to Q2), Departure of Q2 and Measure.
@@ -52,20 +59,20 @@ Measurements were made with time-differences exponentially distributed with a me
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 1. For the three different inter-arrival times the mean value and the corresponding standard deviation (StdDev) is presented for length of Q2 and the rejection ratio of Q1.}
+  \caption{Results of task 1. For the three different inter-arrival times the mean value for length of Q2 and the rejection ratio of Q1 is presented. For the mean length of Q2 the 95\% confidence interval is also given. As the standard deviation of the mean estimate of the rejection is very small, it is not presented.}
   \label{tab:task1}
-  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  %\resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|c|c|}
   \hline
-  \TwoRowCell{\bf Inter-arrival \\ \bf times Q1 (s)} & \TwoRowCell{\bf Mean length \\ \bf Q2} & \TwoRowCell{\bf StdDev length \\ \bf Q2} & \TwoRowCell{\bf Mean rejection \\ \bf ratio Q1} & \TwoRowCell{\bf StdDev rejection \\ \bf ratio Q1} \\ \hline
-  1                                   & 11                      & 13                        & 0.52                             & 0.02                              \\ \hline
-  2                                   & 4.4                     & 3.0                       & 0.070                            & 0.009                             \\ \hline
-  5                                   & 0.43                    & 0.55                      & 0                                & 0                                 \\ \hline
+  \TwoRowCell{\bf Inter-arrival \\ \bf times Q1 (s)} & \TwoRowCell{\bf Mean length \\ \bf Q2} & \TwoRowCell{\bf Mean rejection \\ \bf ratio Q1} \\ \hline
+  1                                   & 11.50 [11.24, 11.77]                      &  0.52                         \\ \hline
+  2                                   & 4.46 [4.40, 4.52]                     & 0.069                       \\ \hline
+  5                                   & 0.430 [0.419, 0.441]                   & 0                    \\ \hline
   \end{tabular}%
-}
+%}
 \end{table}
 
-From the results of length Q2 presented in Table \ref{tab:task1}, as the uncertainties is of the same order as the mean, the system state varies a lot. The rejection ratios are more significant and shows an expected behaviour, i.e. the shorter inter-arrival time the higher rejection rate.
+From the results of length Q2 presented in Table \ref{tab:task1}, one can with good confidence say that the mean length of the queue decreases with longer inter-arrival times, as expected. However, the sample standard deviation is on the same order as the mean which indicates that the system state varies a lot. The rejection ratios are very significant and shows an expected behaviour, i.e. the shorter inter-arrival time the higher rejection rate.
 
 
 \section{Task 2}
@@ -90,15 +97,15 @@ As a verification step the following was controlled:
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 2 for the first three questions/simulation runs presented in the task description. For all runs the mean and standard deviation (StdDev) of the buffer length is presented.}
+  \caption{Results of task 2 for the first three questions/simulation runs presented in the task description. For all runs the mean and the 95\% confidence interval of the buffer length is presented.}
   \label{tab:task2}
   %\resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|}
   \hline
-  \textbf{``Run''} & \TwoRowCell{\bf Mean length \\ \bf of buffer} & \TwoRowCell{\bf StdDev length \\ \bf of buffer} \\ \hline
-  1                                   & 130                      & 100            \\ \hline
-  2                                   & 7.2                    & 7.9          \\ \hline
-  3                                   & 3.6                     & 3.8           \\ \hline
+  \textbf{``Run''} & \TwoRowCell{\bf Mean length \\ \bf of buffer}  \\ \hline
+  1                                   & 131 [124, 137]                  \\ \hline
+  2                                   & 7.2 [6.7, 7.7]                           \\ \hline
+  3                                   & 3.6 [3.3, 3.8]                             \\ \hline
   \end{tabular}%
 %}
 \end{table}
@@ -112,7 +119,7 @@ The simulation results is presented graphically in Figure \ref{fig:task2}.
   \label{fig:task2}
 \end{figure}
 
-The result of run 1 and 2 differs substantially.
+The result of run 1 and 2 differs substantially and significantly.
 As job B is prioritised and feeded to a system with a delay of 1 s one obtains a periodicity.
 Consider a constant delay of 1 s and the situation when the system starts up, the periodic behaviour can be explained with the following chain of events:
 \begin{enumerate}
@@ -143,20 +150,22 @@ The results of task 3 is presented in Table \ref{tab:task3}.
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 3. For the three different mean arrival times the mean customer length and the mean queueing time for the simulation and analytical calculations are presented.}
+  \caption{Results of task 3. For the three different mean arrival times the mean customer length with a 95\% confidence interval and the mean queueing time for the simulation and analytical calculations are presented.}
   \label{tab:task3}
   \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|c|c|}
   \hline
   \TwoRowCell{\bf Mean arrival \\ \bf times (s)} & \TwoRowCell{\bf Mean customer \\ \bf length (simulated) } & \TwoRowCell{\bf Mean customer \\ \bf length (analytically) }& \TwoRowCell{\bf Mean queueing \\ \bf time (simulated) } & \TwoRowCell{\bf Mean queueing \\ \bf time (analytically) } \\ \hline
-  2                                   & 1.98                      & 2                        & 3.99                             & 4                              \\ \hline
-  1.5                                   & 4.02                     & 4                       & 5.99                            & 6                             \\ \hline
-  1.1                                   & 18.5                    & 20                      & 20.2                                & 22                                 \\ \hline
+  2                                   & 1.93 [1.89, 1.97]                     & 2                        & 3.90 [3.86, 3.92]                            & 4                              \\ \hline
+  1.5                                   & 4.14 [4.07, 4.21]                     & 4                       & 6.15 [6.10, 6.20]                            & 6                             \\ \hline
+  1.1                                   & 18.3 [18.0, 18.5]                    & 20                      & 20.10 [19.97, 20.24]                               & 22                                 \\ \hline
   \end{tabular}%
 }
 \end{table}
 
-The simulated values are very congruent with the analytical calculations in case of 2 and 1.5 s mean arrival times.
+The simulated values are somewhat close to the analytical calculations in case of 2 and 1.5 s mean arrival times.
+However, they are quite far from the 95\% confidence interval limits.
+This could perhaps show some kind of uncertainty with simulations due to the random number generation.
 For the 1.1 s mean arrival time the simulated values deviate more from the analytical value.
 The reason to why, is unclear.
 A delayed start-up of 1000 s, chosen on the basis of the graphic evolution of the mean customer length, was tried but resulted in similar values.
@@ -273,20 +282,24 @@ The system was simulated for 100 000 s and the results for the different arrival
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 5. For the three different inter-arrival times the mean value $\pm$ its standard deviation is presented for all load distributions and mean arrival times.}
+  \caption{Results of task 5. For the three different inter-arrival times the mean value and its 95\% confidence interval are presented for all load distributions and mean arrival times.}
   \label{tab:task5}
   \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
   \begin{tabular}{|c|c|c|c|}
   \hline
   \TwoRowCell{\bf Inter-arrival \\ \bf times (s)} & \TwoRowCell{\bf Random load \\ \bf distribution} & \TwoRowCell{\bf Robin load \\ \bf distribution} & \TwoRowCell{\bf Smallest queue \\ \bf distribution}  \\ \hline
-  0.11                                   & 46                      & 27                        & 11                                                       \\ \hline
-  0.15                                   & 9                     & 6                       & 4                                                      \\ \hline
-  2                                   & 0.26                    & 0.25                      & 0.25                                                          \\ \hline
+  0.11                                   & 44.9 [44.6, 45.2]                      & 26.3 [25.9, 26.6]                        & 11.8 [11.7, 12.0]                                                       \\ \hline
+  0.15                                   & 9.26 [9.20, 9.32]                     & 5.98 [5.89, 6.06]                       & 3.97 [3.94, 4.00]                                                      \\ \hline
+  2                                   & 0.257 [0.250, 0.263]                    & 0.256 [0.249, 0.263]                     & 0.252 [0.245, 0.258]                                                          \\ \hline
   \end{tabular}%
 }
 \end{table}
 
-From the results presented in Table \ref{tab:task5} it is clear that the smallest queue distribution is the best as it has the lowest average queue length for all mean arrival times.
+From the results presented in Table \ref{tab:task5} it is clear that the smallest queue distribution is has the lowest average queue length for mean arrival times 0.11 and 0.15 s.
+For the same mean arrival time, it can also be seen that the Robin load is the second best.
+For the longest mean arrival time all confidence interval overlap which indicates that no load distribution is better than the other.
+Furthermore, the shorter arrival times the relative improvement possible by changing to the smallest queue distribution increases (e.g. $\frac{26.3}{11.8} > \frac{5.98}{3.97}$).
+
 
 
 \section{Task 6}
@@ -302,10 +315,10 @@ The results of task 6 is presented in Table \ref{tab:task6}.
 
 \begin{table}[H]
   \centering
-  \caption{Results of task 6. The average time the work finishes and the average time it takes to fill a prescription is presented with $\pm \sigma$ (standard deviation).}
+  \caption{Results of task 6. The average time the work finishes and the average time it takes to fill a prescription is presented with the 95\% confidence interval.}
   \begin{tabular}{c | c}
     Average time work finishes & Average time it takes to fill prescription \\ \hline
-    17:24 $\pm 15$ & $25 \pm 11$ min
+    17:23:30 [17:22:34, 17:24:26] & 25.1 [25.0, 25.2]  min
   \end{tabular}
   \label{tab:task6}
 \end{table}
@@ -316,10 +329,10 @@ First the life time for each of the components were generated and stored in an e
 The mean of this container, which is the average life time of the system, is the result presented in Table \ref{tab:task7}.
 \begin{table}[H]
   \centering
-  \caption{The result of task 7. The average life time is presented with its uncertainty (standard deviation).}
+  \caption{The result of task 7. The average life time is presented with its 95\% confidence interval.}
   \begin{tabular}{c}
     Average life time of the system \\ \hline
-    $3.67 \pm 0.93$
+    $3.67 [3.61, 3.73]$
   \end{tabular}
   \label{tab:task7}
 \end{table}

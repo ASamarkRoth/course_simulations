@@ -42,7 +42,7 @@ void ProcessList::AddProcess(shared_ptr<Process> p) {
 }
 
 void ProcessList::Update() {
-	cout << "Updating process list" << endl;
+	//cout << "Updating process list" << endl;
 	//Sorting the process list
 	sort(procs.begin(), procs.end(),
 			[](const shared_ptr<Process> a, const shared_ptr<Process> b) {
@@ -95,12 +95,12 @@ std::ostream& operator<<(ostream& os, Process* p) {
 }
 
 void Generator::TreatSignal(Signal x) {
-	cout << "Treating signal in " << this->GetName() << " - " << x << endl;
+	//cout << "Treating signal in " << this->GetName() << " - " << x << endl;
 	switch(x.SignalType) {
 		case Signal::Ready:
 			++nbr_arrivals;
-			//AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
-			AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
+			AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
+			//AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
 			AddSignal(Signal::Ready, "Generator", x.ArrivalTime + get_uni_time(rnd_engine, t_mean));
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
@@ -108,7 +108,7 @@ void Generator::TreatSignal(Signal x) {
 }
 
 void Queue::TreatSignal(Signal x) {
-	cout << "Treating signal in " << this->GetName() << " - " << x << endl;
+	//cout << "Treating signal in " << this->GetName() << " - " << x << endl;
 	double t_mean = 0.5;
 	switch(x.SignalType) {
 		case Signal::Ready:
@@ -133,7 +133,7 @@ void Queue::TreatSignal(Signal x) {
 	}
 }
 void Measure::TreatSignal(Signal x) {
-	cout << "Treating signal in " << this->GetName() << " - " << x << endl;
+	//cout << "Treating signal in " << this->GetName() << " - " << x << endl;
 	switch(x.SignalType) {
 		case Signal::Ready:
 			AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));

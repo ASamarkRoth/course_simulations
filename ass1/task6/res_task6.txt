@@ -1,6 +1,12 @@
 Results for run 
-mean(overtime) = 23.5019
-stddev(NC) = 14.8884
-mean(Filling time) = 25.1209
-stddev(Filling time) = 11.2437
+mean = 503.502
+stddev of mean estimate = 0.470811
+95% conf int = 502.579, 504.425
+90% conf int = 502.727, 504.276
+99% conf int = 502.289, 504.715
+mean = 25.1209
+stddev of mean estimate = 0.0632879
+95% conf int = 24.9969, 25.2449
+90% conf int = 25.0168, 25.225
+99% conf int = 24.9579, 25.2839
 

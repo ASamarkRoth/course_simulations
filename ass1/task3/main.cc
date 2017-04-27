@@ -5,6 +5,18 @@
 
 using namespace std;
 
+void stats(ofstream& ofs, vector<double> v) {
+	double mean = calc_mean(v);
+	double stddev = calc_stddev(v);
+	double stddev_mean = stddev/sqrt(v.size());
+	ofs << "mean = " << mean << endl;
+	ofs << "stddev of mean estimate = " << stddev_mean << endl;
+	ofs << "95% conf int = " << mean - 1.96*stddev_mean << ", " << mean + 1.96*stddev_mean << endl;
+	ofs << "90% conf int = " << mean - 1.645*stddev_mean << ", " << mean + 1.645*stddev_mean << endl;
+	ofs << "99% conf int = " << mean - 2.576*stddev_mean << ", " << mean + 2.576*stddev_mean << endl;
+	cout << endl;
+}
+
 int main() {
 	cout << "Running task 1 " << endl;
 	ofstream f_res("res_task3.txt");
@@ -32,13 +44,10 @@ int main() {
 
 		s.Write("task3_"+to_string(dt)+".root");
 
-		f_res << "Results for dtQ1 = " << dt << endl;
-		f_res << "mean(LQ2) = " << calc_mean(s.v_LQ2) << endl;
-		f_res << "stddev(LQ2) = " << calc_stddev(s.v_LQ2) << endl;
-		f_res << "mean(LQ1) = " << calc_mean(s.v_LQ1) << endl;
-		f_res << "stddev(LQ1) = " << calc_stddev(s.v_LQ1) << endl;
-		f_res << "mean(time) = " << calc_mean(s.v_mean_time) << endl;
-		f_res << "stddev(time) = " << calc_stddev(s.v_mean_time) << endl;
+		f_res << "Results for dtQ1 = " << dt << " and LQ1 " << endl;
+		stats(f_res, s.v_LQ1);
+		f_res << "Results for dtQ1 = " << dt << " and mean time " << endl;
+		stats(f_res, s.v_mean_time);
 		f_res << endl;
 	}
 

@@ -5,14 +5,26 @@
 
 using namespace std;
 
+void stats(ofstream& ofs, vector<double> v) {
+	double mean = calc_mean(v);
+	double stddev = calc_stddev(v);
+	double stddev_mean = stddev/sqrt(v.size());
+	ofs << "mean = " << mean << endl;
+	ofs << "stddev of mean estimate = " << stddev_mean << endl;
+	ofs << "95% conf int = " << mean - 1.96*stddev_mean << ", " << mean + 1.96*stddev_mean << endl;
+	ofs << "90% conf int = " << mean - 1.645*stddev_mean << ", " << mean + 1.645*stddev_mean << endl;
+	ofs << "99% conf int = " << mean - 2.576*stddev_mean << ", " << mean + 2.576*stddev_mean << endl;
+	cout << endl;
+}
+
 int main() {
 	//cout/gc << "Running task 5" << endl;
 	ofstream f_res("res_task5.txt");
 
-	//vector<double> v_t = {0.11, 0.15, 2.};
-	vector<double> v_t = {0.30};
+	vector<double> v_t = {0.11, 0.15, 2.};
+	//vector<double> v_t = {0.30};
 	for(auto& m_time : v_t) {
-		for(int i = 0; i!=1;++i) {
+		for(int i = 0; i!=3;++i) {
 			int seed = 1;
 			default_random_engine rnd(seed);
 
@@ -45,20 +57,20 @@ int main() {
 			//cout/gc << plist << endl;
 
 			int j = 0;
-			while(plist.procs[0]->SignalList[0].ArrivalTime < 2) {
+			while(plist.procs[0]->SignalList[0].ArrivalTime < 100000) {
 			//while(M->nbr_measurements < 2) {
 				plist.TreatSignal();
 				//cout << "Before sorting ... " << endl;
 				//cout << plist << endl;
 				plist.Update();
-				cout << plist;
-				cout << "LQ = " << Qs[0]->LQ << endl;
+				//cout << plist;
+				//cout << "LQ = " << Qs[0]->LQ << endl;
 				int sum = 0;
 				for(int i = 0; i!=5; ++i) sum += Qs[i]->nbr_ready;
 				//cout/gc << "nbr_ready = " << sum << endl;
 				//cout/gc << "nbr_arrivals = " << G->nbr_arrivals << endl;
 				++j;
-				cout << ">>>>>>>>>> " << endl;
+				//cout << ">>>>>>>>>> " << endl;
 			}
 
 #ifdef ROOTSYS
@@ -68,7 +80,7 @@ int main() {
 			write_txt(M->v_LQ, "task5_"+to_string(mean_arrival_time)+loads[i]->GetName()+".txt");
 
 			f_res << "Run with mean arrival time " << mean_arrival_time << " and Load distr " << loads[i]->GetName() << endl;
-			f_res << "mean LQ = " << calc_mean(M->v_LQ) << endl;
+			stats(f_res, M->v_LQ);
 			f_res << "Little's theorem LQ = " << (1./mean_arrival_time)*0.5 << endl;
 			f_res << endl;
 		}

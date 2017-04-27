@@ -48,6 +48,18 @@ double calc_stddev(vector<double>& v) {
 	return stdev;
 }
 
+void stats(ofstream& ofs, vector<double> v) {
+	double mean = calc_mean(v);
+	double stddev = calc_stddev(v);
+	double stddev_mean = stddev/sqrt(v.size());
+	ofs << "mean = " << mean << endl;
+	ofs << "stddev of mean estimate = " << stddev_mean << endl;
+	ofs << "95% conf int = " << mean - 1.96*stddev_mean << ", " << mean + 1.96*stddev_mean << endl;
+	ofs << "90% conf int = " << mean - 1.645*stddev_mean << ", " << mean + 1.645*stddev_mean << endl;
+	ofs << "99% conf int = " << mean - 2.576*stddev_mean << ", " << mean + 2.576*stddev_mean << endl;
+	cout << endl;
+}
+
 int main() {
 	cout << "Running task 7 " << endl;
 	ofstream f_res("res_task7.txt");
@@ -100,8 +112,7 @@ int main() {
 	//s.Write("task6.root");
 
 	f_res << "Results for run " << endl;
-	f_res << "mean(life) = " << calc_mean(v_life) << endl;
-	f_res << "stddev(life) = " << calc_stddev(v_life) << endl;
+	stats(f_res, v_life);
 	f_res << endl;
 
 

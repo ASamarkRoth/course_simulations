@@ -16,6 +16,9 @@ LDFLAGS   = -g
 #LDFLAGS +=  -stdlib=libc++
 
 # Libraries
+root_config := root-config
+#if type root-config > /dev/null;
+#ifneq($root-config),)
 ifdef ROOTSYS
 	CPPFLAGS += `root-config --cflags`
 	LDLIBS = `root-config --libs --glibs`

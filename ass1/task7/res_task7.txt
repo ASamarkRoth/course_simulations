@@ -1,4 +1,7 @@
 Results for run 
-mean(life) = 3.67003
-stddev(life) = 0.925017
+mean = 3.67003
+stddev of mean estimate = 0.0292516
+95% conf int = 3.6127, 3.72737
+90% conf int = 3.62191, 3.71815
+99% conf int = 3.59468, 3.74539
 

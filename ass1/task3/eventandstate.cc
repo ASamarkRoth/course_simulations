@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <math.h>
 
+#ifdef ROOTYES
 #include "TString.h"
 #include "TFile.h"
 #include "TGraph.h"
@@ -13,6 +14,7 @@
 #include "TLegend.h"
 #include "TPaveText.h"
 #include "TLatex.h"
+#endif
 
 using namespace std;
 
@@ -71,6 +73,8 @@ void State::ProcessEvent(EventList& el) {
 			break;
 	}
 }
+
+#ifdef ROOTYES
 void State::Write(string s) {
 	cout << "Writing to file task3.root" << endl;
 	TFile* f_out = new TFile(TString(s), "RECREATE");
@@ -135,6 +139,7 @@ void State::Write(string s) {
 
 
 }
+#endif
 
 double get_exp_time(default_random_engine& rnd, double mu) {
 	exponential_distribution<double> dist_exp(1/mu);

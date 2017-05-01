@@ -32,7 +32,7 @@ The simulations has been performed with c++.
 For every task a brief description of the implementation is presented.
 I'm a PhD student in experimental nuclear physics and as with all research the results and statistical treatments and conclusions are extremely important. All possible feedback concerning this, is highly appreciated.
 
-If not otherwise noted, the 95\% confidence interval was calculated as:
+If not otherwise noted, the 95\% confidence interval was calculated using the normal distribution approximation as:
 \begin{equation*}
   [\bar{x} - 1.96\cdot\frac{\sigma}{\sqrt{N}}, \bar{x} + 1.96\cdot\frac{\sigma}{\sqrt{N}}]
 \end{equation*}
@@ -267,17 +267,37 @@ A base class LoadDistr with derived classes RandomLoad, RobinLoad and SmallestQu
 The Generator process possesses an object of type LoadDistr which has a function GetQ which is invoked when Queue is chosen.
 
 The system was first tried on just one Queue and verified with Little's theorem.
+To enable the verification process the mean time spent in a queue, $w$, was also calculated.
 In this process it was noted that if the mean arrival time was smaller than the mean service time, the system diverged.
-It was observed that for mean inter-arrival times $\rightarrow$ mean service time a mean queue length longer than the value from Little's theorem was always obtained.
-However, for larger inter-arrival times the queue length agreed with Little's theorem.
-Why this is the case is still unclear.
-The chain of signals have been closely controlled and these work as they are intended.
-The sampling from the uniform distribution and the exponential distribution has also been verified to work.
+%It was observed that for mean inter-arrival times $\rightarrow$ mean service time a mean queue length longer than the value from Little's theorem was always obtained.
+%However, for larger inter-arrival times the queue length agreed with Little's theorem.
+%Why this is the case is still unclear.
+%The chain of signals have been closely controlled and these work as they are intended.
+%The sampling from the uniform distribution and the exponential distribution has also been verified to work.
+As a verification of the final system with the different load distributions and the five queues the system was run with mean arrival time of 0.12 s.
+The results are presented in Table \ref{tab:task5.1}.
 
-Even though the system might not work as it should the full implementation was made.
-The system behaved the same with 5 queues and the load distribution as discussed in the above section.
-Hence, with a mean arrival time of 0.12 seconds an obtained queue length quite longer than Little's theorem indicated.
-Although, the system does not seem to work correctly quantitatively it should qualititatively.
+\begin{table}[H]
+  \centering
+  \caption{Verification of the final system in task 5 with inter-arrival time of 0.12 s. The system was verified for all load distributions and the used parameters in Little's theorem, $L = \lambda \cdot w$, is also given. The simulated values are presented with the 95\% confidence interval.}
+  \label{tab:task5.1}
+  \resizebox{\textwidth}{!}{% Important that this only covers the tabular!
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \TwoRowCell{\bf Load \\ \bf distribution } & \TwoRowCell{\bf $\lambda$ \\ \bf (s$^{-1}$)} & {\bf $w$ (s) } & \TwoRowCell{\bf $L$ \\ \bf (Little's theorem)} & \TwoRowCell{\bf $L$\ \bf (from simulation)}  \\ \hline
+  Random  &   8.33                      &  2.8                       & 23.02       & 22.99 [22.83, 23.16]                                                \\ \hline
+  Robin  &   8.33                     & 1.7                       & 13.77    & 13.91 [13.79, 14.04]                                                \\ \hline
+  Smallest queue  &   8.33                    & 0.8                     & 0.81  & 6.77 [6.71, 6.83]                                                        \\ \hline
+  \end{tabular}%
+}
+\end{table}
+
+From the results in Table \ref{tab:task5.1} the Random and Smallest queue distributions agree with Little's theorem. The Robin load distribution is just outside the confidence interval and it is possible to reject that Little's theorem is equal to the simulation value on a 95\% significance level. Although, not on a 99\% level.
+
+%Even though the system might not work as it should the full implementation was made.
+%The system behaved the same with 5 queues and the load distribution as discussed in the above section.
+%Hence, with a mean arrival time of 0.12 seconds an obtained queue length quite longer than Little's theorem indicated.
+%Although, the system does not seem to work correctly quantitatively it should qualititatively.
 The system was simulated for 100 000 s and the results for the different arrival times and load distributions are presented in Table \ref{tab:task6}.
 
 \begin{table}[H]
@@ -297,6 +317,7 @@ The system was simulated for 100 000 s and the results for the different arrival
 
 From the results presented in Table \ref{tab:task5} it is clear that the smallest queue distribution is has the lowest average queue length for mean arrival times 0.11 and 0.15 s.
 For the same mean arrival time, it can also be seen that the Robin load is the second best.
+The confidence intervals strongly overlap for inter-arrival time 2 s and one cannot reject that all simulation runs are equal on a 95\%.
 For the longest mean arrival time all confidence interval overlap which indicates that no load distribution is better than the other.
 Furthermore, the shorter arrival times the relative improvement possible by changing to the smallest queue distribution increases (e.g. $\frac{26.3}{11.8} > \frac{5.98}{3.97}$).
 

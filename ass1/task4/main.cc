@@ -34,7 +34,9 @@ int main() {
 			//for(auto& e : el.event_list) cout << e << endl;
 		}
 
+#ifdef ROOTYES
 		s.Write("task4_"+to_string(j)+".root");
+#endif
 
 		write_txt(s.v_NC, "task4_"+to_string(j)+".txt");
 

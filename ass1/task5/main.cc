@@ -21,7 +21,7 @@ int main() {
 	//cout/gc << "Running task 5" << endl;
 	ofstream f_res("res_task5.txt");
 
-	vector<double> v_t = {0.11, 0.15, 2.};
+	vector<double> v_t = {0.12, 0.11, 0.15, 2.};
 	//vector<double> v_t = {0.60};
 	for(auto& m_time : v_t) {
 		for(int i = 0; i!=3;++i) {
@@ -85,7 +85,7 @@ int main() {
 			for(int j = 0; j < 5; ++j) {
 				w += calc_mean(Qs[j]->w_time)/5.;
 			}
-			f_res << "Little's theorem LQ = " << (1./mean_arrival_time)*w << endl;
+			f_res << "Little's theorem LQ: lambda = " << (1./mean_arrival_time) << " and W = " << w << " and L = " << (1./mean_arrival_time) * w  << endl;
 			f_res << endl;
 		}
 	}

@@ -96,12 +96,15 @@ std::ostream& operator<<(ostream& os, Process* p) {
 
 void Generator::TreatSignal(Signal x) {
 	//cout << "Treating signal in " << this->GetName() << " - " << x << endl;
+	double next_time;
 	switch(x.SignalType) {
 		case Signal::Ready:
 			++nbr_arrivals;
 			AddSignal(Signal::Arrival, "Q" + to_string(this->Load->GetQ(rnd_engine)), x.ArrivalTime);
 			//AddSignal(Signal::Arrival, "Q" + to_string(1), x.ArrivalTime);
-			AddSignal(Signal::Ready, "Generator", x.ArrivalTime + get_uni_time(rnd_engine, t_mean));
+			next_time = get_uni_time(rnd_engine, t_mean);
+			arrival_times.push_back(next_time);
+			AddSignal(Signal::Ready, "Generator", x.ArrivalTime + next_time);
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
 	}
@@ -110,22 +113,28 @@ void Generator::TreatSignal(Signal x) {
 void Queue::TreatSignal(Signal x) {
 	//cout << "Treating signal in " << this->GetName() << " - " << x << endl;
 	double t_mean = 0.5;
+	double next_time;
 	switch(x.SignalType) {
 		case Signal::Ready:
 			if(LQ > 1){
 				//cout << "Queue larger than 1 and adding Ready" << endl;
-				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
+				next_time = get_exp_time(rnd_engine, t_mean);
+				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + next_time);
 				++nbr_ready;
 			}
 			--LQ;
+			w_time.push_back(x.ArrivalTime - arrival_time[0]);
+			arrival_time.erase(arrival_time.begin());
 			//for(auto& s : SignalList) cout << s << endl;
 			break;
 		case Signal::Arrival:
 			if(LQ == 0) {
+				next_time = get_exp_time(rnd_engine, t_mean);
 				AddSignal(Signal::Ready, this->GetName(), x.ArrivalTime + get_exp_time(rnd_engine, t_mean));
 				//cout << "Queue was empty and adding Ready" << endl;
 			}
 			++LQ;
+			arrival_time.push_back(x.ArrivalTime);
 			break;
 		case Signal::Measure:
 			AddSignal(Signal::Arrival, "Measure", x.ArrivalTime, LQ);

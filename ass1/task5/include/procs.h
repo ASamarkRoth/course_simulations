@@ -61,6 +61,7 @@ public:
 	double t_mean;
 	std::shared_ptr<LoadDistr> Load;
 	unsigned int nbr_arrivals;
+	std::vector<double> arrival_times;
 
 };
 
@@ -76,6 +77,7 @@ public:
 	virtual std::string GetName() const {return Name;}
 
 	unsigned int LQ, nbr_ready;
+	std::vector<double> arrival_time, w_time;
 
 };
 

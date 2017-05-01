@@ -1,72 +1,72 @@
 Run with mean arrival time 0.11 and Load distr Random
-mean = 44.9111
-stddev of mean estimate = 0.158758
-95% conf int = 44.6, 45.2223
-90% conf int = 44.65, 45.1723
-99% conf int = 44.5022, 45.3201
-Little's theorem LQ = 4.54545
+mean = 44.9178
+stddev of mean estimate = 0.175207
+95% conf int = 44.5744, 45.2612
+90% conf int = 44.6296, 45.206
+99% conf int = 44.4665, 45.3691
+Little's theorem LQ = 45.2965
 
 Run with mean arrival time 0.11 and Load distr Robin
-mean = 26.2715
-stddev of mean estimate = 0.179428
-95% conf int = 25.9198, 26.6232
-90% conf int = 25.9764, 26.5667
-99% conf int = 25.8093, 26.7337
-Little's theorem LQ = 4.54545
+mean = 26.7106
+stddev of mean estimate = 0.135786
+95% conf int = 26.4445, 26.9767
+90% conf int = 26.4872, 26.934
+99% conf int = 26.3608, 27.0604
+Little's theorem LQ = 26.5529
 
 Run with mean arrival time 0.11 and Load distr Opt
-mean = 11.8254
-stddev of mean estimate = 0.0816601
-95% conf int = 11.6654, 11.9855
-90% conf int = 11.6911, 11.9598
-99% conf int = 11.6151, 12.0358
-Little's theorem LQ = 4.54545
+mean = 11.7451
+stddev of mean estimate = 0.0754115
+95% conf int = 11.5973, 11.8929
+90% conf int = 11.621, 11.8691
+99% conf int = 11.5508, 11.9393
+Little's theorem LQ = 11.7337
 
 Run with mean arrival time 0.15 and Load distr Random
-mean = 9.26345
-stddev of mean estimate = 0.0321383
-95% conf int = 9.20046, 9.32644
-90% conf int = 9.21058, 9.31632
-99% conf int = 9.18066, 9.34624
-Little's theorem LQ = 3.33333
+mean = 9.14637
+stddev of mean estimate = 0.0320439
+95% conf int = 9.08357, 9.20918
+90% conf int = 9.09366, 9.19909
+99% conf int = 9.06383, 9.22892
+Little's theorem LQ = 9.15497
 
 Run with mean arrival time 0.15 and Load distr Robin
-mean = 5.97569
-stddev of mean estimate = 0.0420453
-95% conf int = 5.89328, 6.0581
-90% conf int = 5.90652, 6.04485
-99% conf int = 5.86738, 6.084
-Little's theorem LQ = 3.33333
+mean = 5.96503
+stddev of mean estimate = 0.0237719
+95% conf int = 5.91843, 6.01162
+90% conf int = 5.92592, 6.00413
+99% conf int = 5.90379, 6.02626
+Little's theorem LQ = 5.9382
 
 Run with mean arrival time 0.15 and Load distr Opt
-mean = 3.97355
-stddev of mean estimate = 0.0160683
-95% conf int = 3.94205, 4.00504
-90% conf int = 3.94711, 3.99998
-99% conf int = 3.93215, 4.01494
-Little's theorem LQ = 3.33333
+mean = 3.94002
+stddev of mean estimate = 0.0150992
+95% conf int = 3.91042, 3.96961
+90% conf int = 3.91518, 3.96485
+99% conf int = 3.90112, 3.97891
+Little's theorem LQ = 3.91582
 
 Run with mean arrival time 2 and Load distr Random
-mean = 0.256776
-stddev of mean estimate = 0.00341065
-95% conf int = 0.250091, 0.26346
-90% conf int = 0.251165, 0.262386
-99% conf int = 0.24799, 0.265561
-Little's theorem LQ = 0.25
+mean = 0.259018
+stddev of mean estimate = 0.00347474
+95% conf int = 0.252207, 0.265828
+90% conf int = 0.253302, 0.264733
+99% conf int = 0.250067, 0.267968
+Little's theorem LQ = 0.25805
 
 Run with mean arrival time 2 and Load distr Robin
-mean = 0.256178
-stddev of mean estimate = 0.00356583
-95% conf int = 0.249189, 0.263167
-90% conf int = 0.250312, 0.262044
-99% conf int = 0.246992, 0.265363
-Little's theorem LQ = 0.25
+mean = 0.253936
+stddev of mean estimate = 0.00347414
+95% conf int = 0.247127, 0.260745
+90% conf int = 0.248221, 0.259651
+99% conf int = 0.244986, 0.262885
+Little's theorem LQ = 0.248713
 
 Run with mean arrival time 2 and Load distr Opt
-mean = 0.251694
-stddev of mean estimate = 0.00334817
-95% conf int = 0.245131, 0.258256
-90% conf int = 0.246186, 0.257202
-99% conf int = 0.243069, 0.260319
-Little's theorem LQ = 0.25
+mean = 0.250399
+stddev of mean estimate = 0.00333817
+95% conf int = 0.243856, 0.256941
+90% conf int = 0.244907, 0.25589
+99% conf int = 0.241799, 0.258998
+Little's theorem LQ = 0.248374
 

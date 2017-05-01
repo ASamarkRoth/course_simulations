@@ -22,7 +22,7 @@ int main() {
 	ofstream f_res("res_task5.txt");
 
 	vector<double> v_t = {0.11, 0.15, 2.};
-	//vector<double> v_t = {0.30};
+	//vector<double> v_t = {0.60};
 	for(auto& m_time : v_t) {
 		for(int i = 0; i!=3;++i) {
 			int seed = 1;
@@ -58,7 +58,7 @@ int main() {
 
 			int j = 0;
 			while(plist.procs[0]->SignalList[0].ArrivalTime < 100000) {
-			//while(M->nbr_measurements < 2) {
+			//while(M->nbr_measurements < 1000) {
 				plist.TreatSignal();
 				//cout << "Before sorting ... " << endl;
 				//cout << plist << endl;
@@ -81,7 +81,11 @@ int main() {
 
 			f_res << "Run with mean arrival time " << mean_arrival_time << " and Load distr " << loads[i]->GetName() << endl;
 			stats(f_res, M->v_LQ);
-			f_res << "Little's theorem LQ = " << (1./mean_arrival_time)*0.5 << endl;
+			double w = 0;
+			for(int j = 0; j < 5; ++j) {
+				w += calc_mean(Qs[j]->w_time)/5.;
+			}
+			f_res << "Little's theorem LQ = " << (1./mean_arrival_time)*w << endl;
 			f_res << endl;
 		}
 	}

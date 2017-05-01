@@ -16,10 +16,14 @@ LDFLAGS   = -g
 #LDFLAGS +=  -stdlib=libc++
 
 # Libraries
-root_config := root-config
+IS_ROOT := $(shell command -v root 2> /dev/null)
+#root_config := `root-config`
+#root_config := `jjj`
 #if type root-config > /dev/null;
 #ifdef ROOTSYS
-ifneq ($(root_config),)
+#ifneq ($(root_config),"`root-config`")
+#ifdef IS_ (,$(findstring root-config,$(root_config)))
+ifdef IS_ROOT
 	CPPFLAGS += `root-config --cflags` -D ROOTYES=1
 	LDLIBS = `root-config --libs --glibs`
 endif

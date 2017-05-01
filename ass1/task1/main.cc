@@ -46,7 +46,9 @@ int main() {
 			//for(auto& e : el.event_list) cout << e << endl;
 		}
 
+#ifdef ROOTYES
 		s.Write("task1_"+to_string(dt)+".root");
+#endif
 
 		f_res << "Results for dtQ1 = " << dt << " LQ2 " << endl;
 		stats(f_res, s.v_LQ2);

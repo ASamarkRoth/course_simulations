@@ -53,8 +53,10 @@ int main() {
 			copy(el.event_list.begin(), el.event_list.begin()+3, ostream_iterator<Event>(cout, "\n"));
 		}
 
+#ifdef ROOTYES
 		if(count == 2) s.Write("task2_"+to_string(B)+"_Exp.root");
 		else s.Write("task2_"+to_string(B)+".root");
+#endif
 
 		f_res << "Results for IsBPriority? = " << B << " and NAB" << endl;
 		stats(f_res, s.v_NAB);

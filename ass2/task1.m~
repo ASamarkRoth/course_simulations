@@ -1,0 +1,103 @@
+clc
+clear all
+
+% 1.b
+c = -[4;
+     3;
+     2;
+     2;
+     1];
+A = [1 0 0 0 0;
+     0 0 1 0 0;
+     1 1 1 0 0;
+     0 0 0 1 1;
+     2 0 0 0 0;
+     2 0 2 2 1;
+     0.2 1 0 0.5 0];
+ b = [16;
+      2;
+      34;
+      28;
+      36;
+      216;
+      18];
+ lb = [0;
+       0;
+       0;
+       0;
+       0];
+ %options = optimoptions('linprog', 'Algorithm', 'interior-point', 'Display', 'iter');
+ %options = optimoptions('linprog', 'Algorithm', 'interior-point', 'Display', 'off');
+ %options = optimoptions('linprog', 'Algorithm', 'dual-simplex', 'Display', 'iter');
+ options = optimoptions('linprog', 'Algorithm', 'dual-simplex', 'Display', 'off');
+ [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+
+ %############################################################################################
+ %1.c
+ shadow_prices = lambda.ineqlin
+
+ %############################################################################################
+ % 1.d
+ its = 40;
+ i_const = 0;
+ fs =  zeros(its);
+ bx3 =  zeros(its);
+ bx3_shadows =  zeros(its);
+ for i = 1:its
+   bx3(i) = b(2);
+   [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+   fs(i) = -fval;
+   bx3_shadows(i) = lambda.ineqlin(2);
+   if bx3_shadows(i) == 0
+     i_const = i;
+   end
+   b(2) = b(2) + 0.6;
+end
+
+iterations = i_const-1
+
+%figure;
+%plot(bx3, fs);
+%figure;
+%plot(bx3, bx3_shadows);
+
+ %############################################################################################
+ % 1.e
+
+ b(2) = 2;
+
+ %alpha
+ [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+
+ x_orig = x
+ c_orig = -c(1)
+
+ i = 0;
+ while isequal(x,x_orig)
+   c(1) = c(1) + 0.1;
+   [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+   i = i + 1;
+ end
+
+ i = i
+ x = x
+ alpha = -c(1)
+
+ %beta
+ c(1) = -4
+ [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+
+ x_orig = x
+ c_orig = -c(1)
+
+ i = 0;
+ while isequal(x,x_orig)
+   c(1) = c(1) - 0.1;
+   [x,fval,exitflag,output,lambda] = linprog(c', A, b, [], [], lb, [], [], options);
+   i = i + 1;
+ end
+
+ i = i
+ x = x
+ beta = -c(1)
+

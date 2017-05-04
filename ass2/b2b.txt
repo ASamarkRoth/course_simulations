@@ -1,0 +1,17 @@
+Original problem 
+(x1, x2, fval) = (1.600000e+00, 2.600000e+00, 1.460000e+01) 
+(lb, ub) = (11, 1.460000e+01) 
+
+ 1st branching 
+Branch a (x1 >= 2), and are both integers = 0 
+(x1, x2, fval) = (2, 2.500000e+00, 1.450000e+01) 
+(lb, ub) = (12, 1.450000e+01) 
+Branch b (x1 <= 1), and are both integers = 1 
+(x1, x2, fval) = (1, 2, 11) 
+(lb, ub) = (12, 1.450000e+01) 
+
+ 2nd branching 
+Branch a (x2 >= 3), had no feasible solution 
+Branch b (x2 <= 2), and are both integers = 1 
+(x1, x2, fval) = (3, 2, 13) 
+(lb, ub) = (12, 1.450000e+01) 

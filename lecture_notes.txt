@@ -73,3 +73,58 @@ Combinatorial search -> discrete time space
 Linear programming: Optimisation of linear problem (linear function)
 Feasible region: region within which solutions exist
 LP: solution is on a corner point!
+
+Lecture 6, 2/5 (absent)
+Heuristic - technique designed to solve problem but ignores whether the solution can be proven to be correct, but which usually produces a good solution. 
+Advantages - run time
+Combinatorial optimisation problem (COP) - optimising discrete structure, examples:
+	Travelling salesman problem 
+	Knapsack problem
+Modification of a given solution gives a neighbour solution -> a set of such operations gives a neighbourhood.
+2-opt: local search algorithm first proposed for TSP (take a route that crosses over itself)
+A move: 
+	go to neighbour solution with the neighbour operator NO!!
+	Process of selecting a given solution in the neighbourhood of the current solution to be the "new" current solution. 
+Local search: Iteratively search neighbourhood for best solution -> local optimum
+	cf. Fission barrier random walk
+How can we avoid the search stopping in a local optimum with local search? -> Metaheuristics
+	Iterative controlling an underlying heuristic process to intelligently exploit search spaces 
+Metaheuristics: 	
+	Iterated Local Search (ILS)
+	Simulated annealing (SA)
+	Tabu Search (TS)
+	Genetic Algorithms (GA)
+	Scatter Search (SS)
+
+Lecture 7, 4/5
+ILS: Extension of local search - relies on controlled restart
+	Change starting solution - with a perturbation of a certain strength
+	Change random neighbour selection
+	Change controlling parameter - Acceptance criterion (update solution)
+	-> When a local optimum is reached, we perturb the solution in order to escape from the local optimum
+SA - inspiration statistical thermodynamics (COOL!) (Metropolis alg)
+	Control parameter = temperature
+1. Choose random neighbour
+2. Improving moves are always accepted
+3. Deteriorating are accepted with a probability that depends on the amount of deterioration and on the temperature exp(-Delta/T)
+Statistical guarantee that SA finds the global optimum.
+Cooling schedule is important.
+TS - Cut off search from parts of the search space (temporarily) and guide towards other parts with penalties and bonuses.
+	Uses memory (don't visit same solution twice)
+Aspiration criterion: Tabu neighbour might be selected anyway if it is deemed good enough
+Attribute: A property of a solution or move (important to avoid visiting same solution and thus need to remember in some way)
+Tabu tenure: Attribute is tabu for this amount of time
+Diversification: Trying to get somewhere else, e.g. frequency based, i.e. penalise elements of the solution that have appeared in many other solutions visited.
+Intensification: Aggressively prioritise attributes of good solutions in a new solution
+* Book
+– Modern heuristic techniques for combinatorial
+problems/ by Colin R. Reeves
+*  Papers:
+– The theory and practice of simulated annealing/
+by Darrall Henderson, Sheldon H. Jacobson,
+and Alan W. Johnson
+– An introduction to Tabu Search/ by Michel
+Gendreau
+
+Lecture 8, 9/5
+

@@ -102,6 +102,7 @@ ILS: Extension of local search - relies on controlled restart
 	Change random neighbour selection
 	Change controlling parameter - Acceptance criterion (update solution)
 	-> When a local optimum is reached, we perturb the solution in order to escape from the local optimum
+
 SA - inspiration statistical thermodynamics (COOL!) (Metropolis alg)
 	Control parameter = temperature
 1. Choose random neighbour
@@ -109,6 +110,8 @@ SA - inspiration statistical thermodynamics (COOL!) (Metropolis alg)
 3. Deteriorating are accepted with a probability that depends on the amount of deterioration and on the temperature exp(-Delta/T)
 Statistical guarantee that SA finds the global optimum.
 Cooling schedule is important.
+Stopping condition: lower limit of temperature
+
 TS - Cut off search from parts of the search space (temporarily) and guide towards other parts with penalties and bonuses.
 	Uses memory (don't visit same solution twice)
 Aspiration criterion: Tabu neighbour might be selected anyway if it is deemed good enough
@@ -116,6 +119,7 @@ Attribute: A property of a solution or move (important to avoid visiting same so
 Tabu tenure: Attribute is tabu for this amount of time
 Diversification: Trying to get somewhere else, e.g. frequency based, i.e. penalise elements of the solution that have appeared in many other solutions visited.
 Intensification: Aggressively prioritise attributes of good solutions in a new solution
+
 * Book
 – Modern heuristic techniques for combinatorial
 problems/ by Colin R. Reeves
@@ -127,4 +131,10 @@ and Alan W. Johnson
 Gendreau
 
 Lecture 8, 9/5
-
+VERY IMPORTANT TO TEST HEURISTICS WITH EXAMPLES
+Genetic algorithms - Main difference, working with update of a population of solutions
+Chromosome - solution representation
+Biology analogies slide 10
+Crossover and mutation operators -> evolution to new generations
+Binary encoding is most established chromosome representation
+Crossover slide 22

@@ -124,7 +124,53 @@ Strange \dots
 
 
 
+
 \section*{Task 2}
+The implemented GA was run 15 times for a total number of generations ranging from 100 to 2000 with a step size of 100. For each total number of generation the average of the best fitness value and its upper and lower 95\% confidence limits were calculated.
+The 95\% confidence interval was calculated using the normal distribution approximation as:
+\begin{equation*}
+    [\bar{x} - 1.96\cdot\frac{\sigma}{\sqrt{N}}, \bar{x} + 1.96\cdot\frac{\sigma}{\sqrt{N}}]
+  \end{equation*}
+Here $x$ is the samples, $\bar{x}$ the estimated mean, $\sigma$ the sample standard deviation and $N$ the number of samples.
+The results of the simulation of task 2 is presented in Figure \ref{fig:task2}.
+
+\begin{figure}[H]
+  \begin{subfigure}{0.5\textwidth}
+     \centering
+     \includegraphics[width=0.99\linewidth]{../GA_TSP/t148.png}
+     \caption{48 cities.}
+     \label{sfig:t248}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+     \centering
+     \includegraphics[width=0.99\linewidth]{../GA_TSP/t170.png}
+     \caption{70 cities.}
+     \label{sfig:t270}
+  \end{subfigure}%
+
+  \begin{subfigure}{\textwidth}
+     \centering
+     \includegraphics[width=0.5\linewidth]{../GA_TSP/t196.png}
+     \caption{96 cities.}
+     \label{sfig:t296}
+  \end{subfigure}%
+  \caption{The average of the best fitness value with its upper and lower 95\% confidence limits for the 20 different total number of generations (x-axis). For the three different TSPs.}
+  \label{fig:task2}
+\end{figure}
+
+r96.  By observing . Do this your experiment plots, explain separately the for convergence the three data behavior files of loadatt48, GA for each loadst70,
+ data
+ file scenario and with respect to
+  . For which data file the confidence interval is tighter
+  and what does this mean?
+
+What is clearly observed in each of the plots is the improvement of the final value of the GA algorithm with increasing total number of generations simulated.
+This is expected since the roulette wheel selection and the elitism works to always keep the best solutions in the population.
+The crossover and the mutation enables the improvement.
+The improvement can be observed to be the largest for a smaller total number of generations simulated.
+It can be explained by that there is always the largest potential improvement of the first generation while it decreases as generations pass.
+
+
 
 \end{document}
 

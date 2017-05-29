@@ -45,7 +45,7 @@ end
 % loadgr96();          % 96 cities
 
 % I have chosen a data file from the above list
-loadatt48();
+loadgr96();
 
 %% prepare the distance matrix
 load('cities.mat');
@@ -73,7 +73,7 @@ xy = cities';
 
 % you should update the following code to obtain the average and 95%
 % confidence interval for each configuration of numGen
-f = fopen('task2_48.csv', 'w');
+f = fopen('task2_96.csv', 'w');
 avgs = zeros(20,1);
 sigmas = zeros(20,1);
 counter = 0;
@@ -112,5 +112,5 @@ plot(100:100:2000, avgs+1.96*sigmas/sqrt(15))
 plot(100:100:2000, avgs-1.96*sigmas/sqrt(15))
 ylabel('Fitness value')
 xlabel('Number of generations')
-legend('Average','Upper 95\% conf. int.', 'Lower 95\% conf. int.')
+legend('Average','Upper 95% conf. int.', 'Lower 95% conf. int.')
 

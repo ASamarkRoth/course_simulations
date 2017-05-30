@@ -14,7 +14,7 @@
 
 
 % we choose the second data file for this example
-loadatt48();
+loadst70();
 
 %% prepare the distance matrix and keep it in d
 load('cities.mat');

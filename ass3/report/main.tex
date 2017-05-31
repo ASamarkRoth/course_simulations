@@ -37,7 +37,7 @@ The GA was validated through the following two tests:
   \item Fitness value decreasing with increasing number of generations.
   \item Fitness value decreasing with increasing population size.
 \end{enumerate}
-The test were performed on the tour with 48 cities and the simulation parameters given in the assignment instructions.
+The test were performed on the TSP with 48 cities with the simulation parameters given in the assignment instructions.
 The results are presented in Table \ref{tab:val1} and \ref{tab:val2}.
 \begin{table}[H]
   \centering
@@ -103,24 +103,24 @@ The results of the simulations are presented in Figure \ref{fig:task1}.
   \label{fig:task1}
 \end{figure}
 
-Using these plots, explain the convergence behavior of GA for the three data files (i.e. do they converge? How quickly they converge?).
+%Using these plots, explain the convergence behavior of GA for the three data files (i.e. do they converge? How quickly they converge?).
 
 The fitness, of the population average such as the best in the generation, decreases as the generations pass.
 This indicates an improvement of the population in general and the best individual in the population.
 The slope of the curves decreases the further along the generations one goes.
-Thus, it can be interpreted that the population converges to a certain mix of solutions.
+Thus, it can be interpreted that the population converges to a certain type of solutions (near optimal).
 
 The average fitness follows the trend of the best fitness strictly, but with an added positive shift.
 Of course the average should be larger than the minimum of the population.
 Interestingly, the curve patterns are, if fluctuations are neglected, almost identical.
-This is could be due to the {\it roulette wheel} selection in combination with the elitism which always works to favour the best fitted individuals.
+This could be due to the {\it roulette wheel} selection in combination with the elitism which always works to favour the best fitted individuals.
 
-If one compares the three simulations it can be observed that the convergence is the fastest for the 96 city TSP.
-The convergence is very similar between the 48 and 70 city TSP, but the 48 city TSP might converge the fastest.
-It seems logical that the more cities in the TSP the longer you can be from the optimal solution.
+If one compares the three simulations it can be observed that the convergence is the fastest for the 96 city TSP (``converged'' $\sim$ generation 500) .
+The convergence of the 48 city TSP (``converged'' $\sim$ generation 1000) is faster than the 70 (``converged'' $\sim$ generation 1600) city TSP.
+It seems logical that the more cities in the TSP the ``farther'' you can be from the optimal solution.
 Hence, a more rapid convergence should be pronounced.
 However, this is not observed comparing the 48 and 70 city TSPs.
-Most probably the structure of the TSP plays a significant role.
+It could be that the structure of the nodes in the TSP plays a significant role.
 What effects the TSP structure have on the convergence is unclear for me though.
 
 \section*{Task 2}
@@ -151,25 +151,31 @@ The results of the simulation of task 2 is presented in Figure \ref{fig:task2}.
      \caption{96 cities.}
      \label{sfig:t296}
   \end{subfigure}%
-\caption{The average of the best fitness value is presented with its upper and lower 95\% confidence limits for the 20 different total number of generations (left y-axis). On the right y-axis the normalised standard deviation (w.r.t. average best fitness value) per total number of generations. The three different TSPs in a), b) and c).}
+\caption{The average of the best fitness value (left y-axis) is presented with its upper and lower 95\% confidence limits for the 20 different total number of generations. On the right y-axis the normalised standard deviation (w.r.t. average best fitness value) per total number of generations is shown. The three different TSPs in (a), (b) and (c).}
   \label{fig:task2}
 \end{figure}
-r96.  By observing . Do this your experiment plots, explain separately the for convergence the three data behavior files of loadatt48, GA for each loadst70,
- data
- file scenario and with respect to
-  . For which data file the confidence interval is tighter
-  and what does this mean?
 
-What is clearly observed in each of the plots is the improvement of the final value of the GA algorithm with increasing total number of generations simulated.
+What is clearly observed in each of the plots in Figure \ref{fig:task2}  is the improvement of the final value of the GA algorithm with increasing total number of generations simulated.
 This is expected since the roulette wheel selection and the elitism works to always keep the best solutions in the population.
 The crossover and the mutation enables the improvement.
 The improvement can be observed to be the largest for a smaller total number of generations simulated.
-It can be explained by that there is always the largest potential improvement of the first generation while it decreases as generations pass.
+It can be explained by that there is always the largest potential improvement of the first generation while it decreases as generations pass since the optimal solution is approaching.
 
-Interesting to note is that the convergence of the 96 city TSP assumes a linear behaviour while the others assume more an exponential behaviour.
+The convergence speed, i.e. after how many generation does not the fitness value improve, is somewhat difficult to compare between the three TSPs.
+However, it seems that the 48 and 70 city TSPs flattens rather nicely at around 2000 generations.
+The 96 city TSP seems to need more than 2000 generations to converge.
+
+Interesting to note is that the convergence of the 96 city TSP assumes a more linear behaviour while the others assume more an exponential behaviour.
+Another interesting feature is that the curves are not strictly decreasing.
+At some points one can see ``bumps''.
+But this is natural, since the GA is a probabilistic process sometimes it might happen that the population does not get the improving mutation or crossover as it did in other runs.
 
 From the red curves, i.e. the normalised standard deviation as a function of total number of generations, in Figure \ref{fig:task2} one can conclude that the confidence interval is the tightest for the 96 city TSP.
 This means that the best value after each simulation does not deviate here as much as for the other TSPs.
+If one studies the pure standard deviation (can also be seen on the confidence intervals) it is difficult to obtain any pattern.
+It seems to fluctuate around some mean value.
+This is interesting in itself and might cause you to draw the conclusion that how certain you can be of the obtained ``optimal'' solution does not depend on the number of iterations computed.
+But, I would say that several more simulations per number of iterations are required to draw any good conclusions.
 
 \end{document}
 
